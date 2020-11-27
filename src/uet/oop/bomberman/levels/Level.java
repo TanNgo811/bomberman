@@ -2,9 +2,8 @@ package uet.oop.bomberman.levels;
 
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.*;
-import uet.oop.bomberman.entities.tiles.Grass;
-import uet.oop.bomberman.entities.tiles.Portal;
-import uet.oop.bomberman.entities.tiles.Wall;
+import uet.oop.bomberman.entities.powerups.*;
+import uet.oop.bomberman.entities.tiles.*;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.File;
