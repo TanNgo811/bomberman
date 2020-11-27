@@ -22,8 +22,8 @@ public class GameLoop {
     static GraphicsContext gc = Sandbox.getGraphicContext();
     static Canvas canvas = Sandbox.getCanvas();
 
-    static ArrayList<Entity> entities = Level.getEntities();
-    static ArrayList<Entity> stillObjects = Level.getStillObjects();
+    public static ArrayList<Entity> entities = Level.getEntities();
+    public static ArrayList<Entity> stillObjects = Level.getStillObjects();
 
     public static double getCurrentGameTime() {
         return currentGameTime;

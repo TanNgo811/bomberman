@@ -10,10 +10,10 @@ public abstract class AnimatedEntity extends Entity {
 
     public AnimatedEntity(int x, int y, Image img) {
         super(x, y, img);
+        this.canCollide = true;
     }
 
     protected void animate() {
         if(_animate < MAX_ANIMATE) _animate++; else _animate = 0;
     }
-
 }

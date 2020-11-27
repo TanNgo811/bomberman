@@ -4,11 +4,11 @@ import javafx.geometry.Rectangle2D;
 
 public class RectBoundedBox {
 
-    int x;
-    int y;
-    int width;
-    int height;
-    Rectangle2D boundary;
+    public int x;
+    public int y;
+    protected int width;
+    protected int height;
+    protected Rectangle2D boundary;
 
     public RectBoundedBox(int x,int y,int w,int h){
         this.x=x;
@@ -27,7 +27,7 @@ public class RectBoundedBox {
     }
 
     public boolean checkCollision(RectBoundedBox b) {
-        return b.getBoundary().intersects(getBoundary());
+        return b.getBoundary().intersects(this.getBoundary());
     }
 
     public void setPosition(int x, int y, double reductionPercent) {
