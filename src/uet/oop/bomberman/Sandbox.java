@@ -11,15 +11,15 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.Level;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static uet.oop.bomberman.BombermanGame.HEIGHT;
 import static uet.oop.bomberman.BombermanGame.WIDTH;
 
 public class Sandbox {
 
-    public List<Entity> entities = new ArrayList<>();
-    public ArrayList<Entity> stillObjects = new ArrayList<>();
+    public static ArrayList<Entity> entities = new ArrayList<>();
+    public static ArrayList<Entity> stillObjects = new ArrayList<>();
+    public static ArrayList<Entity> blockObjects = new ArrayList<>();
 
     Level level;
 
@@ -42,7 +42,12 @@ public class Sandbox {
 
         Level.createMap();
 
+        entities = Level.getEntities();
+        stillObjects = Level.getStillObjects();
+        blockObjects = Level.getBlockObjects();
+
         EventHandler.attachEventHandlers(s);
+
     }
 
     public static void setupScene(){

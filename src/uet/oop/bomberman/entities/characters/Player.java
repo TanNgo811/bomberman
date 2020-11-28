@@ -13,7 +13,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Player extends AnimatedEntity {
 
-//    private final String walkRightPath = "file:res/sprites/player_right_";
+
     Direction currentDirection;
     Direction _direction;
     Sprite sprite;
@@ -24,18 +24,14 @@ public class Player extends AnimatedEntity {
     double scale = 1;
     public Player(int x, int y, Image img) {
         super( x, y, img);
-//        sprite = Sprite.player_right;
-//        positionX = x;
-//        positionY = y;
-//        _sprite = Sprite.player_right;
-//        playerBoundary = new RectBoundedBox(getX()+(int)(16*getReduceBoundarySizePercent()),
-//                getY()+(int)(16*getReduceBoundarySizePercent()),
-//                (int)(16* getScale())-2*+(int)(16*getReduceBoundarySizePercent()),
-//                (int)(16* getScale())-2*+(int)(16*getReduceBoundarySizePercent()));
-//        gc.setStroke(Color.RED);
-//        gc.strokeRect(0,0,16,16);
+
         this.boundary = new RectBoundedBox(x+6, y+6, 20, 26);
     }
+
+//    @Override
+//    public void kill() {
+//
+//    }
 
     public double getScale() {
         return scale;
@@ -47,49 +43,7 @@ public class Player extends AnimatedEntity {
     }
 
 
-//    private void setCurrentSprite(Sprite s) {
-////        if (s != null) {
-//        currentSprite = s;
-////        } else {
-////            System.out.println("Sprite missing!");
-////        }
-//    }
 
-
-//    private void chooseSprite() {
-//        switch (_direction) {
-//            case UP:
-//                sprite= Sprite.player_up;
-////                if (_moving) {
-//                sprite = Sprite.movingSprite(Sprite.player_up_1, Sprite.player_up_2, _animate, 20);
-////                }
-//                break;
-//            case RIGHT:
-//                sprite = Sprite.player_right;
-////                if (_moving) {
-//                sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
-////                }
-//                break;
-//            case DOWN:
-//                sprite = Sprite.player_down;
-////                if (_moving) {
-//                sprite = Sprite.movingSprite(Sprite.player_down_1, Sprite.player_down_2, _animate, 20);
-////                }
-//                break;
-//            case LEFT:
-//                sprite = Sprite.player_left;
-////                if (_moving) {
-//                sprite = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, _animate, 20);
-////                }
-//                break;
-//            default:
-//                sprite = Sprite.player_right;
-////                if (_moving) {
-//                sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
-////                }
-//                break;
-//        }
-//    }
 
     public void move(int step, Direction direction) {
         if (step == 0) {
@@ -148,7 +102,7 @@ public class Player extends AnimatedEntity {
 
     public boolean checkCollisions(int _x, int _y) {
         this.boundary.setPosition(_x, _y,0);
-        for (Entity e : GameLoop.stillObjects) {
+        for (Entity e : Sandbox.blockObjects) {
             if (e != this && isColliding(e) && !e.canCollide()) {
                 this.boundary.setPosition(x, y,0);
 
@@ -160,7 +114,7 @@ public class Player extends AnimatedEntity {
             }
         }
 //        this.boundary.setPosition(x, y,0);
-        System.out.println("no colliding");
+//        System.out.println("no colliding");
         return true;
     }
 
@@ -173,8 +127,6 @@ public class Player extends AnimatedEntity {
     @Override
     public void render(GraphicsContext gc) {
         super.render(gc);
-        gc.strokeRect(this.boundary.getBoundary().getMinX(),this.boundary.getBoundary().getMinY()
-                ,this.boundary.getBoundary().getWidth(),this.boundary.getBoundary().getHeight());
     }
 
     public double getReduceBoundarySizePercent() {

@@ -1,4 +1,4 @@
-package uet.oop.bomberman.entities.characters;
+package uet.oop.bomberman.entities.tiles;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

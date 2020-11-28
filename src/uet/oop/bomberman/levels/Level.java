@@ -2,6 +2,9 @@ package uet.oop.bomberman.levels;
 
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.*;
+import uet.oop.bomberman.entities.characters.Enemy.Balloon;
+import uet.oop.bomberman.entities.tiles.Brick;
+import uet.oop.bomberman.entities.characters.Enemy.Oneal;
 import uet.oop.bomberman.entities.powerups.*;
 import uet.oop.bomberman.entities.tiles.*;
 import uet.oop.bomberman.graphics.Sprite;
@@ -15,6 +18,7 @@ public class Level {
 
     public static ArrayList<Entity> entities = new ArrayList<>();
     public static ArrayList<Entity> stillObjects = new ArrayList<>();
+    public static ArrayList<Entity> blockObjects = new ArrayList<>();
     public static Player player;
 
 
@@ -36,6 +40,7 @@ public class Level {
                             case '#':
                                 object = new Wall(i, j, Sprite.wall.getFxImage());
                                 stillObjects.add(object);
+                                blockObjects.add(object);
                                 break;
                             case 'p':
                                 stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
@@ -46,12 +51,16 @@ public class Level {
                             case '*':
                                 stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 object = new Brick(i, j, Sprite.brick.getFxImage());
-                                entities.add(object);
+//                                entities.add(object);
+                                stillObjects.add(object);
+                                blockObjects.add(object);
                                 break;
                             case 'x':
                                 stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 object = new Portal(i, j, Sprite.portal.getFxImage());
                                 stillObjects.add(object);
+                                entities.add(object);
+                                blockObjects.add(object);
                                 break;
                             case '1':
                                 stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
@@ -110,6 +119,10 @@ public class Level {
 
     public static ArrayList<Entity> getStillObjects() {
         return stillObjects;
+    }
+
+    public static ArrayList<Entity> getBlockObjects() {
+        return blockObjects;
     }
 
     public void setStillObjects(ArrayList<Entity> stillObjects) {

@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import uet.oop.bomberman.boundedbox.RectBoundedBox;
+import uet.oop.bomberman.entities.characters.Enemy.AI.AI;
 import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Entity {
@@ -21,6 +22,8 @@ public abstract class Entity {
     protected boolean canCollide;
 
     protected boolean isRemoved = false;
+
+
 
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
     public Entity( int xUnit, int yUnit, Image img) {
