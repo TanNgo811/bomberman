@@ -2,27 +2,36 @@ package uet.oop.bomberman.entities.characters;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.boundedbox.RectBoundedBox;
 import uet.oop.bomberman.entities.AnimatedEntity;
+import uet.oop.bomberman.entities.Entity;
 
 public abstract class Character extends AnimatedEntity {
 
-    protected boolean _alive = true;
+    protected boolean isKilled = false;
 
     public Character(int x, int y, Image img) {
         super(x, y, img);
     }
 
-    public abstract void kill();
-
-    public boolean isAlive() {
-        return _alive;
+    public boolean isColliding(Entity b){
+        RectBoundedBox otherEntityBoundary = b.getBoundary();
+        return this.boundary.checkCollision(otherEntityBoundary);
     }
 
     @Override
-    public abstract void update();
+    public void update() {
+
+    }
+
+    public abstract void kill();
+
+    public boolean isKilled() {
+        return isKilled;
+    }
 
     @Override
-    public abstract void render(GraphicsContext gc);
-
-
+    public void render(GraphicsContext gc) {
+        super.render(gc);
+    }
 }

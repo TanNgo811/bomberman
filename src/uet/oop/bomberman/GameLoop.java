@@ -24,6 +24,8 @@ public class GameLoop {
 
     public static ArrayList<Entity> entities = Level.getEntities();
     public static ArrayList<Entity> stillObjects = Level.getStillObjects();
+    public static ArrayList<Entity> blockObjects = Level.getBlockObjects();
+
 
     public static double getCurrentGameTime() {
         return currentGameTime;
@@ -50,10 +52,15 @@ public class GameLoop {
 
     public static void updateGame() {
         InputManager.handlePlayerMovements();
-        entities.forEach(Entity::update);
-//        for (Entity i : entities) {
-//            i.update();
-//        }
+        for (int i = 0; i < entities.size(); i++) {
+            if (entities.get(i).isRemoved()) entities.remove(i);
+            else entities.get(i).update();
+        }
+        for (int i = 0; i < blockObjects.size(); i++) {
+            if (blockObjects.get(i).isRemoved()) blockObjects.remove(i);
+            else blockObjects.get(i).update();
+        }
+
     }
 
     public static void renderGame() {
