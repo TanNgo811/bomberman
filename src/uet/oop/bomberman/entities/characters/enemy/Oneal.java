@@ -2,15 +2,20 @@ package uet.oop.bomberman.entities.characters.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.Sandbox;
 import uet.oop.bomberman.entities.Direction;
+import uet.oop.bomberman.entities.characters.Player;
 import uet.oop.bomberman.entities.characters.enemy.AI.AILow;
+import uet.oop.bomberman.entities.characters.enemy.AI.AIMedium;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Oneal  extends Enemy {
 
+    Player player = Sandbox.player;
     public Oneal(int x, int y, Image img) {
         super( x, y, img);
-
+        this._speed = 5;
+//        _ai = new AIMedium(player, this);
         _ai = new AILow();
         direction = Direction.values()[_ai.calculateDirection()];
     }
@@ -61,6 +66,15 @@ public class Oneal  extends Enemy {
 
     @Override
     public void render(GraphicsContext gc) {
+        if (isKilled) {
+            if (deathCountDown > 0) {
+                this.img = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, _animate, 20).getFxImage();
+                deathCountDown--;
+            } else {
+                this.img = null;
+                remove();
+            }
+        }
         super.render(gc);
 
     }

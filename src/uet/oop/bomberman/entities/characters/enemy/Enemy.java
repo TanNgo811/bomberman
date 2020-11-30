@@ -46,7 +46,6 @@ public abstract class Enemy extends Character {
     }
 
     public boolean moveLeft() {
-//        img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, _animate, 60).getFxImage();
         if (checkCollisions(x - _speed, y)) {
             x -= _speed;
             return true;
@@ -55,7 +54,6 @@ public abstract class Enemy extends Character {
     }
 
     public boolean moveRight() {
-//        img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, _animate, 60).getFxImage();
         if (checkCollisions(x + _speed, y)) {
             x += _speed;
             return true;
@@ -64,7 +62,6 @@ public abstract class Enemy extends Character {
     }
 
     public boolean moveUp() {
-//        img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, _animate, 60).getFxImage();
         if (checkCollisions(x, y - _speed)) {
             y -= _speed;
             return true;
@@ -73,7 +70,6 @@ public abstract class Enemy extends Character {
     }
 
     public boolean moveDown() {
-//        img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, _animate, 60).getFxImage();
         if (checkCollisions(x, y + _speed)) {
             y += _speed;
             return true;

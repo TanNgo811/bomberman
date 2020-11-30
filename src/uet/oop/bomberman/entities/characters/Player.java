@@ -9,11 +9,15 @@ import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.powerups.PowerUp;
+import uet.oop.bomberman.entities.powerups.PowerUpBomb;
+import uet.oop.bomberman.entities.powerups.PowerUpFlame;
+import uet.oop.bomberman.entities.powerups.PowerUpSpeed;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.Level;
 
 import java.util.ArrayList;
-import static uet.oop.bomberman.Sandbox.getBlock;
+
+
 
 public class Player extends Character {
 
@@ -28,15 +32,20 @@ public class Player extends Character {
 
     protected int bombCount = 1;
     protected int powerUpsCount = 0;
-    protected int bombRadius = 2;
+    protected int bombRadius = 1;
     protected int playerSpeed = 2;
     private int deathCountDown = 15;
+
     protected ArrayList<PowerUp> powerUps = new ArrayList<>();
+    protected PowerUpFlame flameItem;
+    protected PowerUpBomb bombItem;
+    protected PowerUpSpeed speedItem;
 
     public Player(int x, int y, Image img) {
         super( x, y, img);
         this.isKilled = false;
-        this.boundary = new RectBoundedBox(x+6, y+6, 20, 26);
+//        this.boundary = new RectBoundedBox(x+6, y-6, 20, 26);
+        this.boundary = new RectBoundedBox(x, y + 6, 20, 28);
     }
 
 
@@ -60,7 +69,7 @@ public class Player extends Character {
                     case UP:
                         if (checkCollisions(x, y - step)) {
                             this.y -= step;
-                            this.img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, _animate, 20).getFxImage();
+                            this.img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, _animate, 60).getFxImage();
                             currentDirection = Direction.UP;
                         }
                         break;
@@ -68,7 +77,7 @@ public class Player extends Character {
                     case DOWN:
                         if (checkCollisions(x, y + step)) {
                             this.y += step;
-                            this.img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, _animate, 20).getFxImage();
+                            this.img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, _animate, 60).getFxImage();
                             currentDirection = Direction.DOWN;
                         }
                         break;
@@ -76,7 +85,7 @@ public class Player extends Character {
                     case RIGHT:
                         if (checkCollisions(x + step, y)) {
                             this.x += step;
-                            this.img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, _animate, 20).getFxImage();
+                            this.img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, _animate, 60).getFxImage();
 
 
                             currentDirection = Direction.RIGHT;
@@ -86,7 +95,7 @@ public class Player extends Character {
                     case LEFT:
                         if (checkCollisions(x - step, y)) {
                             this.x -= step;
-                            this.img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, _animate, 20).getFxImage();
+                            this.img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, _animate, 60).getFxImage();
                             currentDirection = Direction.LEFT;
                         }
                         break;
@@ -148,6 +157,49 @@ public class Player extends Character {
         return true;
     }
 
+    public boolean checkCollisionsWithPowerUpFlame(int _x, int _y) {
+        this.boundary.setPosition(_x, _y,0);
+        for (Entity e : Sandbox.powerUps) {
+            if (e instanceof PowerUpFlame) {
+                if (isColliding(e)) {
+                    flameItem = (PowerUpFlame) e;
+                    this.boundary.setPosition(x, y, 0);
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean checkCollisionsWithPowerUpBomb(int _x, int _y) {
+        this.boundary.setPosition(_x, _y,0);
+        for (Entity e : Sandbox.powerUps) {
+            if (e instanceof PowerUpBomb) {
+                if (isColliding(e)) {
+                    bombItem = (PowerUpBomb) e;
+                    this.boundary.setPosition(x, y, 0);
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean checkCollisionsWithPowerUpSpeed(int _x, int _y) {
+        this.boundary.setPosition(_x, _y,0);
+        for (Entity e : Sandbox.powerUps) {
+            if (e instanceof PowerUpSpeed) {
+                if (isColliding(e)) {
+                    speedItem = (PowerUpSpeed) e;
+                    this.boundary.setPosition(x, y, 0);
+                    ((PowerUpSpeed) e).setActive();
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     public boolean hasBomb() {
         return (bombCount > 0);
@@ -190,12 +242,15 @@ public class Player extends Character {
         if (!checkCollisionsWithEnemy(x, y)) {
             this.kill();
         }
+        if (isKilled) {
+            remove();
+        }
+
 
     }
 
     @Override
     public void render (GraphicsContext gc){
-//        if (isKilled)
         super.render(gc);
         gc.strokeRect(this.boundary.getBoundary().getMinX(), this.boundary.getBoundary().getMinY()
                 , this.boundary.getBoundary().getWidth(), this.boundary.getBoundary().getHeight());

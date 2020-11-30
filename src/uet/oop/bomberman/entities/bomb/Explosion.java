@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.Sandbox;
 import uet.oop.bomberman.boundedbox.RectBoundedBox;
+import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.Player;
@@ -13,7 +14,7 @@ import uet.oop.bomberman.entities.tiles.destroyable.Brick;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.Level;
 
-public class Explosion extends Entity {
+public class Explosion extends AnimatedEntity {
 
     protected Direction direction;
 
@@ -22,9 +23,11 @@ public class Explosion extends Entity {
         this.direction = direction;
         switch (direction) {
             case UP: case DOWN:
+//                this.img = Sprite.movingSprite(Sprite.explosion_vertical, Sprite.explosion_vertical1, Sprite.explosion_vertical2, _animate, 10).getFxImage();
                 this.img = Sprite.explosion_vertical2.getFxImage();
                 break;
             case LEFT: case RIGHT:
+//                this.img = Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, _animate, 10).getFxImage();
                 this.img = Sprite.explosion_horizontal2.getFxImage();
                 break;
             default:

@@ -65,7 +65,7 @@ public class Balloon  extends Enemy {
     public void render(GraphicsContext gc) {
         if (isKilled) {
             if (deathCountDown > 0) {
-                this.img = Sprite.balloom_dead.getFxImage();
+                this.img = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, _animate, 20).getFxImage();
                 deathCountDown--;
             } else {
                 this.img = null;

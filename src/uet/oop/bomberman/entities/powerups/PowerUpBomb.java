@@ -2,10 +2,13 @@ package uet.oop.bomberman.entities.powerups;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.Sandbox;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.Player;
 
 public class PowerUpBomb extends PowerUp {
+
+    private Player player = Sandbox.player;
 
     public PowerUpBomb(int x, int y, Image img) {
         super( x, y, img);
@@ -13,13 +16,9 @@ public class PowerUpBomb extends PowerUp {
 
     @Override
     public void update() {
-
-    }
-
-    @Override
-    public void setActive() {
-        //TODO: Khi setActive thi +1 vao bombRate (dat nhieu hon 1 qua)
-        super.setActive();
+        if (active) {
+            remove();
+        }
     }
 
     @Override

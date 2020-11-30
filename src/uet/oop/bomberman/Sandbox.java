@@ -12,6 +12,8 @@ import uet.oop.bomberman.controls.InputManager;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.enemy.Enemy;
 import uet.oop.bomberman.entities.characters.Player;
+import uet.oop.bomberman.entities.powerups.PowerUp;
+import uet.oop.bomberman.entities.powerups.PowerUpFlame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.Level;
 
@@ -32,6 +34,8 @@ public class Sandbox {
     public static ArrayList<Entity> blockObjects = new ArrayList<>();
     public static ArrayList<Entity> enemies = new ArrayList<>();
     public static ArrayList<Entity> bombs = new ArrayList<>();
+
+    public static PowerUpFlame flameItem;
 
     public static Player player;
 
@@ -108,6 +112,9 @@ public class Sandbox {
             if (powerUps.get(i).isRemoved()) powerUps.remove(i);
             else powerUps.get(i).update();
         }
+        updateItem();
+
+
     }
 
     public static void renderGame() {
@@ -115,13 +122,12 @@ public class Sandbox {
         layerObjects.forEach(g -> g.render(gc));
         bombs.forEach(g -> g.render(gc));
         blockObjects.forEach(g -> g.render(gc));
+        powerUps.forEach(g -> g.render(gc));
         enemies.forEach(g -> g.render(gc));
         player.render(gc);
     }
 
-    /*
-    Getter & Setter
-     */
+
 
     public static void addBomb(Entity b) {
         bombs.add(b);
@@ -156,8 +162,36 @@ public class Sandbox {
         return null;
     }
 
+    public static void updateItem() {
+        if (!player.checkCollisionsWithPowerUpFlame(player.getX(), player.getY())) {
+            System.out.println("Touch Flame");
+            player.setBombRadius(2);
+        }
+
+        if (!player.checkCollisionsWithPowerUpBomb(player.getX(), player.getY())) {
+            System.out.println("Touch Bomb Item");
+            player.addBomb();
+        }
+
+        if (!player.checkCollisionsWithPowerUpSpeed(player.getX(), player.getY())) {
+            System.out.println("Touch Speed Item");
+            player.setSpeed(4);
+        }
+
+
+    }
+
+
+    /*
+    Getter & Setter
+     */
+
     public void setLayerObjects(ArrayList<Entity> layerObjects) {
         this.layerObjects = layerObjects;
+    }
+
+    public static Player getPlayer() {
+        return player;
     }
 
     public ArrayList<Entity> getEnemies() {
