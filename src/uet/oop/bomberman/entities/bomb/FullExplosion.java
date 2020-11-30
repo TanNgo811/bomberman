@@ -2,6 +2,8 @@ package uet.oop.bomberman.entities.bomb;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.Sandbox;
+import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 
 public class FullExplosion extends Entity {
 
-    protected int radius = 1;
+    protected int radius;
     protected ArrayList<Explosion> explosions = new ArrayList<>();
 
     public FullExplosion(int x, int y, Image img, int radius) {

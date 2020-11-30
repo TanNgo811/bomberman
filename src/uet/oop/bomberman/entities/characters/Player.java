@@ -22,7 +22,6 @@ public class Player extends Character {
     Sprite sprite;
     private int lives = 1;
     public int steps;
-    public boolean _alive = false;
 
     double reduceBoundarySizePercent=0.45;
     double scale = 1;
@@ -36,8 +35,7 @@ public class Player extends Character {
 
     public Player(int x, int y, Image img) {
         super( x, y, img);
-        this._alive = true;
-        this.isKilled = true;
+        this.isKilled = false;
         this.boundary = new RectBoundedBox(x+6, y+6, 20, 26);
     }
 
@@ -54,7 +52,7 @@ public class Player extends Character {
 
 
     public void move(int step, Direction direction) {
-        if (_alive == true) {
+        if (isKilled == false) {
             if (step == 0) {
                 return;
             } else {
@@ -98,7 +96,7 @@ public class Player extends Character {
 
                 }
             }
-        }else {
+        } else {
                 dieImg();
         }
     }
@@ -141,6 +139,12 @@ public class Player extends Character {
                 return false;
             }
         }
+        for (Entity e : Sandbox.bombs) {
+            if (isColliding(e) && !(e instanceof Bomb) ) {
+                this.boundary.setPosition(x, y, 0);
+                return false;
+            }
+        }
         return true;
     }
 
@@ -169,8 +173,8 @@ public class Player extends Character {
     }
 
     public void dropBomb() {
-        Entity bombPlaced = new Bomb(this.getXUnit(), this.getYUnit(), Sprite.bomb.getFxImage());
-        Sandbox.addEntity(bombPlaced);
+        Bomb bombPlaced = new Bomb(this.getXUnit(), this.getYUnit(), Sprite.bomb.getFxImage());
+        Sandbox.addBomb(bombPlaced);
         System.out.println("Drop Bomb");
         bombCount--;
     }
@@ -178,23 +182,20 @@ public class Player extends Character {
     @Override
     public void kill() {
         isKilled = true;
-        System.out.println("killed");
-        remove();
     }
 
     @Override
     public void update() {
         animate();
         if (!checkCollisionsWithEnemy(x, y)) {
-            this._alive = false;
+            this.kill();
         }
 
     }
 
     @Override
     public void render (GraphicsContext gc){
-        if (isKilled)
-//            this.img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, _animate, 60).getFxImage();
+//        if (isKilled)
         super.render(gc);
         gc.strokeRect(this.boundary.getBoundary().getMinX(), this.boundary.getBoundary().getMinY()
                 , this.boundary.getBoundary().getWidth(), this.boundary.getBoundary().getHeight());
