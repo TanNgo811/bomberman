@@ -49,7 +49,6 @@ public class Sandbox {
         enemies = Level.getEnemies();
 
         EventHandler.attachEventHandlers(s);
-
     }
 
     public static void setupScene(){
@@ -66,6 +65,32 @@ public class Sandbox {
 
     public void setEntities(ArrayList<Entity> entities) {
         this.entities = entities;
+    }
+
+    public static void addEntity(Entity e) {
+        entities.add(e);
+    }
+
+    public static Entity getEntity(int x, int y) {
+        int xUnit = x / Sprite.SCALED_SIZE;
+        int yUnit = y / Sprite.SCALED_SIZE;
+        for (Entity e : entities) {
+            if (e.getXUnit() == xUnit && e.getYUnit() == yUnit)
+                return e;
+        }
+        return null;
+    }
+
+    public static Entity getBlock(int x, int y) {
+        int xUnit = x / Sprite.SCALED_SIZE;
+        int yUnit = y / Sprite.SCALED_SIZE;
+        for (Entity e : blockObjects) {
+            if (e.getXUnit() == xUnit && e.getYUnit() == yUnit) {
+                return e;
+            }
+
+        }
+        return null;
     }
 
     public void setStillObjects(ArrayList<Entity> stillObjects) {

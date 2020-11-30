@@ -92,6 +92,12 @@ public abstract class Enemy extends Character {
         return false;
     }
 
+    @Override
+    public void kill() {
+        img = Sprite.balloom_dead.getFxImage();
+        this.isKilled = true;
+        this.remove();
+    }
 
     public void render(GraphicsContext gc) {
         super.render(gc);

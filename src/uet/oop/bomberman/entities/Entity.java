@@ -5,6 +5,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import uet.oop.bomberman.GameLoop;
+import uet.oop.bomberman.Sandbox;
 import uet.oop.bomberman.boundedbox.RectBoundedBox;
 import uet.oop.bomberman.entities.characters.Enemy.AI.AI;
 import uet.oop.bomberman.graphics.Sprite;
@@ -40,8 +42,8 @@ public abstract class Entity {
 
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
-        gc.strokeRect(this.boundary.getBoundary().getMinX(),this.boundary.getBoundary().getMinY()
-                ,this.boundary.getBoundary().getWidth(),this.boundary.getBoundary().getHeight());
+//        gc.strokeRect(this.boundary.getBoundary().getMinX(),this.boundary.getBoundary().getMinY()
+//                ,this.boundary.getBoundary().getWidth(),this.boundary.getBoundary().getHeight());
     }
     public abstract void update();
 
@@ -49,8 +51,16 @@ public abstract class Entity {
         return x;
     }
 
+    public int getXUnit() {
+        return x / Sprite.SCALED_SIZE;
+    }
+
     public int getY() {
         return y;
+    }
+
+    public int getYUnit() {
+        return y / Sprite.SCALED_SIZE;
     }
 
     public void setCollision(boolean canCollide) {
