@@ -1,32 +1,27 @@
-package uet.oop.bomberman.entities.characters.Enemy;
+package uet.oop.bomberman.entities.characters.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.Sandbox;
 import uet.oop.bomberman.boundedbox.RectBoundedBox;
-import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.characters.Character;
-import uet.oop.bomberman.entities.characters.Enemy.AI.AI;
+import uet.oop.bomberman.entities.characters.enemy.AI.AI;
 import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Enemy extends Character {
 
     protected int _point;
-
-    protected double _speed;
-
+    protected int _speed;
     protected int _steps;
-
     protected double MAX_STEPS;
-
     protected double rest;
-
     protected AI _ai;
-
     protected Direction direction;
 
+    protected int deathCountDown = 75;
 
     public Enemy(int x, int y, Image img) {
         super(x, y, img);
@@ -50,11 +45,10 @@ public abstract class Enemy extends Character {
         return true;
     }
 
-
     public boolean moveLeft() {
 //        img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, _animate, 60).getFxImage();
-        if (checkCollisions(x - 1, y)) {
-            x -= 1;
+        if (checkCollisions(x - _speed, y)) {
+            x -= _speed;
             return true;
         }
         return false;
@@ -62,8 +56,8 @@ public abstract class Enemy extends Character {
 
     public boolean moveRight() {
 //        img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, _animate, 60).getFxImage();
-        if (checkCollisions(x + 1, y)) {
-            x += 1;
+        if (checkCollisions(x + _speed, y)) {
+            x += _speed;
             return true;
         }
         return false;
@@ -71,8 +65,8 @@ public abstract class Enemy extends Character {
 
     public boolean moveUp() {
 //        img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, _animate, 60).getFxImage();
-        if (checkCollisions(x, y - 1)) {
-            y -= 1;
+        if (checkCollisions(x, y - _speed)) {
+            y -= _speed;
             return true;
         }
         return false;
@@ -80,8 +74,8 @@ public abstract class Enemy extends Character {
 
     public boolean moveDown() {
 //        img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, _animate, 60).getFxImage();
-        if (checkCollisions(x, y + 1)) {
-            y += 1;
+        if (checkCollisions(x, y + _speed)) {
+            y += _speed;
             return true;
         }
         return false;
@@ -89,9 +83,7 @@ public abstract class Enemy extends Character {
 
     @Override
     public void kill() {
-        img = Sprite.balloom_dead.getFxImage();
         this.isKilled = true;
-        this.remove();
     }
 
     public void render(GraphicsContext gc) {

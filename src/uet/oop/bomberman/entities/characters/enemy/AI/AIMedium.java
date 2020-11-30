@@ -1,6 +1,6 @@
-package uet.oop.bomberman.entities.characters.Enemy.AI;
+package uet.oop.bomberman.entities.characters.enemy.AI;
 
-import uet.oop.bomberman.entities.characters.Enemy.Enemy;
+import uet.oop.bomberman.entities.characters.enemy.Enemy;
 import uet.oop.bomberman.entities.characters.Player;
 
 public class AIMedium extends AI{

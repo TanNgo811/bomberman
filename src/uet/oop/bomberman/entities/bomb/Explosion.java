@@ -6,10 +6,12 @@ import uet.oop.bomberman.Sandbox;
 import uet.oop.bomberman.boundedbox.RectBoundedBox;
 import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.characters.Character;
+import uet.oop.bomberman.entities.characters.Player;
+import uet.oop.bomberman.entities.characters.enemy.Enemy;
 import uet.oop.bomberman.entities.tiles.*;
 import uet.oop.bomberman.entities.tiles.destroyable.Brick;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.levels.Level;
 
 public class Explosion extends Entity {
 
@@ -30,21 +32,40 @@ public class Explosion extends Entity {
         }
     }
 
-    public boolean isColliding(Entity b){
-        RectBoundedBox otherEntityBoundary = b.getBoundary();
-        return this.boundary.checkCollision(otherEntityBoundary);
-    }
+//    public boolean isColliding(Entity b){
+//        if (b != null) {
+//            RectBoundedBox otherEntityBoundary = b.getBoundary();
+//            return this.boundary.checkCollision(otherEntityBoundary);
+//        }
+//        return false;
+//    }
+
+//    public boolean checkCollisions(int _x, int _y){
+//        this.boundary.setPosition(_x, _y, 0);
+//        boolean check = true;
+//        for (Entity e : Sandbox.blockObjects) {
+//            if (isColliding(e)) {
+//                this.boundary.setPosition(x, y, 0);
+//                check = false;
+//            }
+//        }
+//        return check;
+//    }
+
 
     @Override
     public void update() {
         Entity mob = Sandbox.getEntity(x, y);
         Entity brick = Sandbox.getBlock(x, y);
-        if (mob instanceof Character) ((Character) mob).kill();
+        if (mob instanceof Player) ((Player) mob).kill();
+        if (mob instanceof Enemy) ((Enemy) mob).kill();
         if (brick instanceof Brick) ((Brick) brick).destroy();
     }
 
     @Override
     public void render(GraphicsContext gc) {
+
+
         Entity wall = Sandbox.getBlock(x, y);
         if (wall instanceof Wall)
             this.img = null;

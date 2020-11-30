@@ -1,28 +1,39 @@
 package uet.oop.bomberman;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+
 import uet.oop.bomberman.controls.EventHandler;
+import uet.oop.bomberman.controls.InputManager;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.characters.enemy.Enemy;
+import uet.oop.bomberman.entities.characters.Player;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.Level;
 
 import java.util.ArrayList;
 
-import static uet.oop.bomberman.BombermanGame.HEIGHT;
-import static uet.oop.bomberman.BombermanGame.WIDTH;
-
 public class Sandbox {
 
-    public static ArrayList<Entity> entities = new ArrayList<>();
-    public static ArrayList<Entity> stillObjects = new ArrayList<>();
+    static final int WIDTH = BombermanGame.WIDTH;
+    static final int HEIGHT = BombermanGame.HEIGHT;
+
+    static double currentGameTime;
+    static double oldGameTime;
+    static double deltaTime;
+    static long startNanoTime = System.nanoTime();
+
+    public static ArrayList<Entity> powerUps = new ArrayList<>();
+    public static ArrayList<Entity> layerObjects = new ArrayList<>();
     public static ArrayList<Entity> blockObjects = new ArrayList<>();
     public static ArrayList<Entity> enemies = new ArrayList<>();
+    public static ArrayList<Entity> bombs = new ArrayList<>();
 
-    Level level;
+    public static Player player;
 
     static Scene s;
     static Group root;
@@ -39,42 +50,95 @@ public class Sandbox {
         gc.setLineWidth(2);
         gc.setFill(Color.BLUE);
 //        Renderer.init();
-        GameLoop.start(gc);
+        start(gc);
 
         Level.createMap();
 
-        entities = Level.getEntities();
-        stillObjects = Level.getStillObjects();
+        layerObjects = Level.getLayerObjects();
         blockObjects = Level.getBlockObjects();
         enemies = Level.getEnemies();
-
+        powerUps = Level.getPowerUps();
+        player = Level.getPlayer();
         EventHandler.attachEventHandlers(s);
     }
 
     public static void setupScene(){
         init();
     }
-    public static Scene getScene() {
-        return s;
+
+    public static double getCurrentGameTime() {
+        return currentGameTime;
     }
 
+    public static void start(GraphicsContext gc) {
+//        GameState.gameStatus=GlobalConstants.GameStatus.Running;
+        new AnimationTimer() {
+            public void handle(long currentNanoTime) {
+                oldGameTime = currentGameTime;
+                currentGameTime = (currentNanoTime - startNanoTime) / 1000000000.0;
+                deltaTime = currentGameTime - oldGameTime;
+//                gc.clearRect(0, 0, WIDTH, HEIGHT);
+
+                updateGame();
+                renderGame();
+            }
+        }.start();
+    }
+
+    public double getDeltaTime() {
+        return deltaTime * 100;
+    }
+
+    public static void updateGame() {
+        InputManager.handlePlayerMovements();
+        for (int i = 0; i < enemies.size(); i++) {
+            if (enemies.get(i).isRemoved()) enemies.remove(i);
+            else enemies.get(i).update();
+        }
+        for (int i = 0; i < blockObjects.size(); i++) {
+            if (blockObjects.get(i).isRemoved()) blockObjects.remove(i);
+            else blockObjects.get(i).update();
+        }
+        player.update();
+        for (int i = 0; i < bombs.size(); i++) {
+            if (bombs.get(i).isRemoved()) bombs.remove(i);
+            else bombs.get(i).update();
+        }
+        for (int i = 0; i < powerUps.size(); i++) {
+            if (powerUps.get(i).isRemoved()) powerUps.remove(i);
+            else powerUps.get(i).update();
+        }
+    }
+
+    public static void renderGame() {
+        gc.clearRect(0, 0, c.getWidth(), c.getHeight());
+        layerObjects.forEach(g -> g.render(gc));
+        bombs.forEach(g -> g.render(gc));
+        blockObjects.forEach(g -> g.render(gc));
+        enemies.forEach(g -> g.render(gc));
+        player.render(gc);
+    }
 
     /*
     Getter & Setter
      */
 
-    public void setEntities(ArrayList<Entity> entities) {
-        this.entities = entities;
+    public static void addBomb(Entity b) {
+        bombs.add(b);
     }
 
-    public static void addEntity(Entity e) {
-        entities.add(e);
+    public static void addEnemy(Enemy e) {
+        enemies.add(e);
     }
 
     public static Entity getEntity(int x, int y) {
         int xUnit = x / Sprite.SCALED_SIZE;
         int yUnit = y / Sprite.SCALED_SIZE;
-        for (Entity e : entities) {
+        for (Entity e : enemies) {
+            if (e.getXUnit() == xUnit && e.getYUnit() == yUnit)
+                return e;
+        }
+        for (Entity e : powerUps) {
             if (e.getXUnit() == xUnit && e.getYUnit() == yUnit)
                 return e;
         }
@@ -88,21 +152,24 @@ public class Sandbox {
             if (e.getXUnit() == xUnit && e.getYUnit() == yUnit) {
                 return e;
             }
-
         }
         return null;
     }
 
-    public void setStillObjects(ArrayList<Entity> stillObjects) {
-        this.stillObjects = stillObjects;
+    public void setLayerObjects(ArrayList<Entity> layerObjects) {
+        this.layerObjects = layerObjects;
     }
 
-    public ArrayList<Entity> getEntities() {
-        return (ArrayList<Entity>) entities;
+    public ArrayList<Entity> getEnemies() {
+        return enemies;
     }
 
-    public ArrayList<Entity> getStillObjects() {
-        return stillObjects;
+    public static ArrayList<Entity> getBombs() {
+        return bombs;
+    }
+
+    public ArrayList<Entity> getLayerObjects() {
+        return layerObjects;
     }
 
     public static Scene getS() {

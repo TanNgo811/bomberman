@@ -1,4 +1,4 @@
-package uet.oop.bomberman.entities.characters.Enemy.AI;
+package uet.oop.bomberman.entities.characters.enemy.AI;
 
 public class AILow extends AI{
 

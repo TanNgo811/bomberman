@@ -11,7 +11,7 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Brick extends AnimatedEntity {
 
     protected boolean destroyed = false;
-    private int deathCountDown = 15;
+    private int deathCountDown = 30;
 
     public Brick(int x, int y, Image img) {
         super( x, y, img);
@@ -26,11 +26,12 @@ public class Brick extends AnimatedEntity {
     }
 
     public void collapsingImg() {
-        if (deathCountDown == 0) {
-            this.img = null;
-        } else {
-            this.img = Sprite.movingSprite(Sprite.brick_exploded2, Sprite.brick_exploded1, Sprite.brick_exploded, _animate, 15).getFxImage();
+        if (deathCountDown > 0) {
+            this.img = Sprite.movingSprite(Sprite.brick_exploded2, Sprite.brick_exploded1, Sprite.brick_exploded, _animate, 120).getFxImage();
             deathCountDown--;
+        } else {
+            this.img = null;
+            remove();
         }
     }
 
@@ -38,10 +39,7 @@ public class Brick extends AnimatedEntity {
     @Override
     public void update() {
         if (isDestroyed()) {
-            remove();
             collapsingImg();
-//            remove();
-            this.img = null;
         }
     }
 

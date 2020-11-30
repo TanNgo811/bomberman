@@ -1,14 +1,8 @@
 package uet.oop.bomberman.entities;
 
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import uet.oop.bomberman.GameLoop;
-import uet.oop.bomberman.Sandbox;
 import uet.oop.bomberman.boundedbox.RectBoundedBox;
-import uet.oop.bomberman.entities.characters.Enemy.AI.AI;
 import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Entity {
