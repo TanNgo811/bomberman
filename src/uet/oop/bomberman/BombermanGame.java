@@ -67,7 +67,7 @@ public class BombermanGame extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Test");
         Sandbox.setupScene();
-        Scene s = Sandbox.getScene();
+        Scene s = Sandbox.getS();
         primaryStage.setScene(s);
         primaryStage.show();
     }
