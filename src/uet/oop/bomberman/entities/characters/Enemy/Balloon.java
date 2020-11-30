@@ -25,6 +25,11 @@ public class Balloon  extends Enemy {
     }
 
     @Override
+    public void kill() {
+
+    }
+
+    @Override
     public boolean moveRight() {
         img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, _animate, 60).getFxImage();
         return super.moveRight();

@@ -11,7 +11,7 @@ import uet.oop.bomberman.entities.characters.Character;
 import uet.oop.bomberman.entities.characters.Enemy.AI.AI;
 import uet.oop.bomberman.graphics.Sprite;
 
-public abstract class Enemy extends AnimatedEntity {
+public abstract class Enemy extends Character {
 
     protected int _point;
 

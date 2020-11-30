@@ -16,19 +16,19 @@ public class InputManager {
 //        System.err.println(""+keyboardInputs);
         if(keyboardInputs.contains(KeyCode.UP) || keyboardInputs.contains(KeyCode.W)){
             System.out.println("Go Up");
-            player.move(5, Direction.UP);
+            player.move(2, Direction.UP);
         }
         if(keyboardInputs.contains(KeyCode.DOWN) || keyboardInputs.contains(KeyCode.S)){
             System.out.println("Go Down");
-            player.move(5,Direction.DOWN);
+            player.move(2,Direction.DOWN);
         }
         if(keyboardInputs.contains(KeyCode.LEFT) || keyboardInputs.contains(KeyCode.A)){
             System.out.println("Go Left");
-            player.move(5,Direction.LEFT);
+            player.move(2,Direction.LEFT);
         }
         if(keyboardInputs.contains(KeyCode.RIGHT) || keyboardInputs.contains(KeyCode.D)){
             System.out.println("Go Right");
-            player.move(5,Direction.RIGHT);
+            player.move(2,Direction.RIGHT);
         }
         if( !keyboardInputs.contains(KeyCode.LEFT) &&
                 !keyboardInputs.contains(KeyCode.RIGHT) &&

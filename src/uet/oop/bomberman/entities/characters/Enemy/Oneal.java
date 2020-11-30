@@ -18,6 +18,11 @@ public class Oneal  extends Enemy {
         direction = Direction.values()[_ai.calculateDirection()];
     }
 
+    @Override
+    public void kill() {
+
+    }
+
 
     @Override
     public boolean moveRight() {

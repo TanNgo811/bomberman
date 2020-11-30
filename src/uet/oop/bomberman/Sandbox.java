@@ -20,6 +20,7 @@ public class Sandbox {
     public static ArrayList<Entity> entities = new ArrayList<>();
     public static ArrayList<Entity> stillObjects = new ArrayList<>();
     public static ArrayList<Entity> blockObjects = new ArrayList<>();
+    public static ArrayList<Entity> enemies = new ArrayList<>();
 
     Level level;
 
@@ -45,6 +46,7 @@ public class Sandbox {
         entities = Level.getEntities();
         stillObjects = Level.getStillObjects();
         blockObjects = Level.getBlockObjects();
+        enemies = Level.getEnemies();
 
         EventHandler.attachEventHandlers(s);
 

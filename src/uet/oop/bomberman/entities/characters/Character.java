@@ -18,11 +18,5 @@ public abstract class Character extends AnimatedEntity {
         return _alive;
     }
 
-    @Override
-    public abstract void update();
-
-    @Override
-    public abstract void render(GraphicsContext gc);
-
 
 }

@@ -19,6 +19,7 @@ public class Level {
     public static ArrayList<Entity> entities = new ArrayList<>();
     public static ArrayList<Entity> stillObjects = new ArrayList<>();
     public static ArrayList<Entity> blockObjects = new ArrayList<>();
+    public static ArrayList<Entity> enemies = new ArrayList<>();
     public static Player player;
 
 
@@ -46,7 +47,7 @@ public class Level {
                                 stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 object = new Player(i, j, Sprite.player_right.getFxImage());
                                 player = (Player) object;
-                                entities.add(object);
+                                entities.add((Player)object);
                                 break;
                             case '*':
                                 stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
@@ -66,11 +67,13 @@ public class Level {
                                 stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 object = new Balloon(i, j, Sprite.balloom_right1.getFxImage());
                                 entities.add(object);
+                                enemies.add(object);
                                 break;
                             case '2':
                                 stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 object = new Oneal(i, j, Sprite.oneal_right1.getFxImage());
                                 entities.add(object);
+                                enemies.add(object);
                                 break;
                             case 'b':
                                 stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
@@ -123,6 +126,10 @@ public class Level {
 
     public static ArrayList<Entity> getBlockObjects() {
         return blockObjects;
+    }
+
+    public static ArrayList<Entity> getEnemies() {
+        return enemies;
     }
 
     public void setStillObjects(ArrayList<Entity> stillObjects) {
