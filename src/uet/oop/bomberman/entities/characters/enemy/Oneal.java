@@ -1,12 +1,9 @@
-package uet.oop.bomberman.entities.characters.Enemy;
+package uet.oop.bomberman.entities.characters.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Direction;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.characters.Enemy.AI.AILow;
+import uet.oop.bomberman.entities.characters.enemy.AI.AILow;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Oneal  extends Enemy {
@@ -20,7 +17,8 @@ public class Oneal  extends Enemy {
 
     @Override
     public void kill() {
-
+        super.kill();
+        this._speed = 0;
     }
 
 
