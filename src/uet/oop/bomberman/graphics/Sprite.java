@@ -235,6 +235,16 @@ public class Sprite {
 		int diff = time / 2;
 		return (animate % time > diff) ? x1 : x2; 
 	}
+
+	public static Sprite bombExplodeSprite(Sprite normal, Sprite x1, Sprite x2, int animate) {
+		if (animate < 10) {
+			return normal;
+		} else if (animate < 25) {
+			return x1;
+		} else {
+			return x2;
+		}
+	}
 	
 	public int getSize() {
 		return SIZE;

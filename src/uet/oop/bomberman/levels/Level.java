@@ -3,7 +3,7 @@ package uet.oop.bomberman.levels;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.*;
 import uet.oop.bomberman.entities.characters.Enemy.Balloon;
-import uet.oop.bomberman.entities.tiles.Brick;
+import uet.oop.bomberman.entities.tiles.destroyable.Brick;
 import uet.oop.bomberman.entities.characters.Enemy.Oneal;
 import uet.oop.bomberman.entities.powerups.*;
 import uet.oop.bomberman.entities.tiles.*;

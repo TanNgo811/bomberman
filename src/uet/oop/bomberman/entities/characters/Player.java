@@ -13,7 +13,6 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.Level;
 
 import java.util.ArrayList;
-
 import static uet.oop.bomberman.Sandbox.getBlock;
 
 public class Player extends Character {
@@ -32,11 +31,13 @@ public class Player extends Character {
     protected int powerUpsCount = 0;
     protected int bombRadius = 2;
     protected int playerSpeed = 2;
+    private int deathCountDown = 15;
     protected ArrayList<PowerUp> powerUps = new ArrayList<>();
 
     public Player(int x, int y, Image img) {
         super( x, y, img);
         this._alive = true;
+        this.isKilled = true;
         this.boundary = new RectBoundedBox(x+6, y+6, 20, 26);
     }
 
@@ -53,7 +54,7 @@ public class Player extends Character {
 
 
     public void move(int step, Direction direction) {
-//        if (_alive == true) {
+        if (_alive == true) {
             if (step == 0) {
                 return;
             } else {
@@ -79,7 +80,6 @@ public class Player extends Character {
                             this.x += step;
                             this.img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, _animate, 20).getFxImage();
 
-//                    List<Image> images = new ArrayList<>();
 
                             currentDirection = Direction.RIGHT;
                         }
@@ -97,47 +97,41 @@ public class Player extends Character {
                         this.img = Sprite.player_right.getFxImage();
 
                 }
-//            } else{
-//            dieImg();
             }
-//
+        }else {
+                dieImg();
+        }
     }
-//
-//
-//
-//    public void dieImg() {
-//
-//        this.img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, _animate, 80).getFxImage();
-//
-//
-////        for (Entity i : Sandbox.entities) {
-////            if (i instanceof Player) {
-////                Sandbox.entities.remove(i);
-////            }
-////        }
-//
-//        }
 
-        public boolean isColliding(Entity b){
-            RectBoundedBox otherEntityBoundary = b.getBoundary();
-            return this.boundary.checkCollision(otherEntityBoundary);
+    public void dieImg() {
+        if (deathCountDown == 0) {
+            this.img = null;
+         } else {
+            this.img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, _animate, 80).getFxImage();
+            deathCountDown--;
         }
+    }
 
-        public boolean checkCollisions(int _x, int _y){
-            this.boundary.setPosition(_x, _y, 0);
-            for (Entity e : Sandbox.blockObjects) {
-                if (e != this && isColliding(e) && !e.canCollide()) {
-                    this.boundary.setPosition(x, y, 0);
+    public boolean isColliding(Entity b){
+        RectBoundedBox otherEntityBoundary = b.getBoundary();
+        return this.boundary.checkCollision(otherEntityBoundary);
+    }
 
-                    System.out.println("Player x=" + getX() + " y="
-                            + getY() + " colliding with x=" + e.getX()
-                            + " y=" + e.getY());
+    public boolean checkCollisions(int _x, int _y){
+        this.boundary.setPosition(_x, _y, 0);
+        for (Entity e : Sandbox.blockObjects) {
+            if (e != this && isColliding(e)) {
+                this.boundary.setPosition(x, y, 0);
 
-                    return false;
-                }
+                System.out.println("Player x=" + getX() + " y="
+                        + getY() + " colliding with x=" + e.getX()
+                        + " y=" + e.getY());
+
+                return false;
             }
-            return true;
         }
+        return true;
+    }
 
     public boolean checkCollisionsWithEnemy(int _x, int _y) {
         this.boundary.setPosition(_x, _y,0);
@@ -151,63 +145,63 @@ public class Player extends Character {
     }
 
 
-        public boolean hasBomb() {
-            return (bombCount > 0);
-        }
+    public boolean hasBomb() {
+        return (bombCount > 0);
+    }
 
-        public void addBomb() {
-            bombCount++;
-        }
-        public void setSpeed(int playerSpeed){
-            this.playerSpeed = playerSpeed;
-        }
+    public void addBomb() {
+        bombCount++;
+    }
+    public void setSpeed(int playerSpeed){
+        this.playerSpeed = playerSpeed;
+    }
 
-        public int getSpeed() {
-            return playerSpeed;
-        }
+    public int getSpeed() {
+        return playerSpeed;
+    }
 
-        public void setBombRadius(int bombRadius){
-            this.bombRadius = bombRadius;
-        }
+    public void setBombRadius(int bombRadius){
+        this.bombRadius = bombRadius;
+    }
 
-        public int getRadius() {
-            return bombRadius;
-        }
+    public int getRadius() {
+        return bombRadius;
+    }
 
-        public void dropBomb() {
-            Entity bombPlaced = new Bomb(this.getXUnit(), this.getYUnit(), Sprite.bomb.getFxImage());
-            Sandbox.addEntity(bombPlaced);
-            System.out.println("Drop Bomb");
-            bombCount--;
-        }
+    public void dropBomb() {
+        Entity bombPlaced = new Bomb(this.getXUnit(), this.getYUnit(), Sprite.bomb.getFxImage());
+        Sandbox.addEntity(bombPlaced);
+        System.out.println("Drop Bomb");
+        bombCount--;
+    }
 
-        @Override
-        public void kill() {
-            isKilled = true;
-            System.out.println("killed");
-            remove();
-        }
+    @Override
+    public void kill() {
+        isKilled = true;
+        System.out.println("killed");
+        remove();
+    }
 
-        @Override
-        public void update() {
-            animate();
-            if (!checkCollisionsWithEnemy(x, y)) {
-                this._alive = false;
-            }
-
-        }
-
-        @Override
-        public void render (GraphicsContext gc){
-            if (isKilled)
-                this.img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, _animate, 60).getFxImage();
-            super.render(gc);
-            gc.strokeRect(this.boundary.getBoundary().getMinX(), this.boundary.getBoundary().getMinY()
-                    , this.boundary.getBoundary().getWidth(), this.boundary.getBoundary().getHeight());
-        }
-
-        public double getReduceBoundarySizePercent() {
-            return reduceBoundarySizePercent;
+    @Override
+    public void update() {
+        animate();
+        if (!checkCollisionsWithEnemy(x, y)) {
+            this._alive = false;
         }
 
     }
+
+    @Override
+    public void render (GraphicsContext gc){
+        if (isKilled)
+//            this.img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, _animate, 60).getFxImage();
+        super.render(gc);
+        gc.strokeRect(this.boundary.getBoundary().getMinX(), this.boundary.getBoundary().getMinY()
+                , this.boundary.getBoundary().getWidth(), this.boundary.getBoundary().getHeight());
+    }
+
+    public double getReduceBoundarySizePercent() {
+        return reduceBoundarySizePercent;
+    }
+
+}

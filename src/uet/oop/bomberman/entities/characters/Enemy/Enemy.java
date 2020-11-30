@@ -42,13 +42,8 @@ public abstract class Enemy extends Character {
     public boolean checkCollisions(int _x, int _y) {
         this.boundary.setPosition(_x, _y,0);
         for (Entity e : Sandbox.blockObjects) {
-            if (e != this && isColliding(e) && !e.canCollide()) {
+            if (e != this && isColliding(e)) {
                 this.boundary.setPosition(x, y,0);
-
-//                System.out.println("Enemy x="+getX()+" y="
-//                        +getY()+" colliding with x="+e.getX()
-//                        +" y="+e.getY());
-
                 return false;
             }
         }

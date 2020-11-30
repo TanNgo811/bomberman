@@ -19,15 +19,12 @@ public abstract class Character extends AnimatedEntity {
         return this.boundary.checkCollision(otherEntityBoundary);
     }
 
-//<<<<<<< HEAD
-//=======
     @Override
     public void update() {
 
     }
 
     public abstract void kill();
-//>>>>>>> 214d854e4efde890b3630d9b043a1ac1d1e63566
 
     public boolean isKilled() {
         return isKilled;

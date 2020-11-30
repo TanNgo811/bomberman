@@ -13,8 +13,6 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Balloon  extends Enemy {
 
-
-
     public Balloon(int x, int y, Image img) {
         super( x, y, img);
         this._point = 100;
@@ -69,6 +67,5 @@ public class Balloon  extends Enemy {
     @Override
     public void render(GraphicsContext gc) {
         super.render(gc);
-
     }
 }

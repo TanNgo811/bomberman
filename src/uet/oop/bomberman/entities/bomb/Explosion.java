@@ -8,6 +8,7 @@ import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.Character;
 import uet.oop.bomberman.entities.tiles.*;
+import uet.oop.bomberman.entities.tiles.destroyable.Brick;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Explosion extends Entity {
