@@ -2,9 +2,9 @@ package uet.oop.bomberman.levels;
 
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.*;
-import uet.oop.bomberman.entities.characters.Enemy.Balloon;
+import uet.oop.bomberman.entities.characters.enemy.Balloon;
 import uet.oop.bomberman.entities.tiles.destroyable.Brick;
-import uet.oop.bomberman.entities.characters.Enemy.Oneal;
+import uet.oop.bomberman.entities.characters.enemy.Oneal;
 import uet.oop.bomberman.entities.powerups.*;
 import uet.oop.bomberman.entities.tiles.*;
 import uet.oop.bomberman.graphics.Sprite;
@@ -16,10 +16,11 @@ import java.util.Scanner;
 
 public class Level {
 
-    public static ArrayList<Entity> entities = new ArrayList<>();
-    public static ArrayList<Entity> stillObjects = new ArrayList<>();
-    public static ArrayList<Entity> blockObjects = new ArrayList<>();
+    public static ArrayList<Entity> layerObjects = new ArrayList<>();
+    public static ArrayList<Entity> block = new ArrayList<>();
     public static ArrayList<Entity> enemies = new ArrayList<>();
+    public static ArrayList<Entity> powerUps = new ArrayList<>();
+
     public static Player player;
 
 
@@ -40,59 +41,46 @@ public class Level {
                         switch (line.charAt(i)) {
                             case '#':
                                 object = new Wall(i, j, Sprite.wall.getFxImage());
-                                stillObjects.add(object);
-                                blockObjects.add(object);
+                                layerObjects.add(object);
+                                block.add(object);
                                 break;
                             case 'p':
-                                stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
-                                object = new Player(i, j, Sprite.player_right.getFxImage());
-                                player = (Player) object;
-                                entities.add((Player)object);
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                player = new Player(i, j, Sprite.player_right.getFxImage());
                                 break;
                             case '*':
-                                stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 object = new Brick(i, j, Sprite.brick.getFxImage());
-//                                entities.add(object);
-                                stillObjects.add(object);
-                                blockObjects.add(object);
+                                layerObjects.add(object);
+                                block.add(object);
                                 break;
                             case 'x':
-                                stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
-                                object = new Portal(i, j, Sprite.portal.getFxImage());
-                                stillObjects.add(object);
-                                entities.add(object);
-                                blockObjects.add(object);
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                block.add(new Brick(i,j,Sprite.brick.getFxImage()));
+                                layerObjects.add(new Portal(i, j, Sprite.portal.getFxImage()));
                                 break;
                             case '1':
-                                stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
-                                object = new Balloon(i, j, Sprite.balloom_right1.getFxImage());
-                                entities.add(object);
-                                enemies.add(object);
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                enemies.add(new Balloon(i, j, Sprite.balloom_right1.getFxImage()));
                                 break;
                             case '2':
-                                stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
-                                object = new Oneal(i, j, Sprite.oneal_right1.getFxImage());
-                                entities.add(object);
-                                enemies.add(object);
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                enemies.add(new Oneal(i, j, Sprite.oneal_right1.getFxImage()));
                                 break;
                             case 'b':
-                                stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
-                                object = new PowerUpBomb(i, j, Sprite.powerup_bombs.getFxImage());
-                                entities.add(object);
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                powerUps.add(new PowerUpBomb(i, j, Sprite.powerup_bombs.getFxImage()));
                                 break;
                             case 'f':
-                                stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
-                                object = new PowerUpFlame(i, j, Sprite.powerup_flames.getFxImage());
-                                entities.add(object);
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                powerUps.add(new PowerUpFlame(i, j, Sprite.powerup_flames.getFxImage()));
                                 break;
                             case 's':
-                                stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
-                                object = new PowerUpSpeed(i, j, Sprite.powerup_speed.getFxImage());
-                                entities.add(object);
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                powerUps.add(new PowerUpSpeed(i, j, Sprite.powerup_speed.getFxImage()));
                                 break;
                             default:
-                                object = new Grass(i, j, Sprite.grass.getFxImage());
-                                stillObjects.add(object);
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 break;
                         }
                     }
@@ -112,27 +100,43 @@ public class Level {
         return player;
     }
 
-    public static ArrayList<Entity> getEntities() {
-        return entities;
+    public static ArrayList<Entity> getBlock() {
+        return block;
     }
 
-    public void setEntities(ArrayList<Entity> entities) {
-        this.entities = entities;
+    public static ArrayList<Entity> getLayerObjects() {
+        return layerObjects;
     }
 
-    public static ArrayList<Entity> getStillObjects() {
-        return stillObjects;
+    public static ArrayList<Entity> getPowerUps() {
+        return powerUps;
     }
 
     public static ArrayList<Entity> getBlockObjects() {
-        return blockObjects;
+        return block;
     }
 
     public static ArrayList<Entity> getEnemies() {
         return enemies;
     }
 
-    public void setStillObjects(ArrayList<Entity> stillObjects) {
-        this.stillObjects = stillObjects;
+    public static void setBlock(ArrayList<Entity> block) {
+        Level.block = block;
+    }
+
+    public static void setEnemies(ArrayList<Entity> enemies) {
+        Level.enemies = enemies;
+    }
+
+    public static void setLayerObjects(ArrayList<Entity> layerObjects) {
+        Level.layerObjects = layerObjects;
+    }
+
+    public static void setPlayer(Player player) {
+        Level.player = player;
+    }
+
+    public static void setPowerUps(ArrayList<Entity> powerUps) {
+        Level.powerUps = powerUps;
     }
 }
