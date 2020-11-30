@@ -11,7 +11,7 @@ import uet.oop.bomberman.entities.characters.Character;
 import uet.oop.bomberman.entities.characters.Enemy.AI.AI;
 import uet.oop.bomberman.graphics.Sprite;
 
-public abstract class Enemy extends AnimatedEntity {
+public abstract class Enemy extends Character {
 
     protected int _point;
 
@@ -92,6 +92,12 @@ public abstract class Enemy extends AnimatedEntity {
         return false;
     }
 
+    @Override
+    public void kill() {
+        img = Sprite.balloom_dead.getFxImage();
+        this.isKilled = true;
+        this.remove();
+    }
 
     public void render(GraphicsContext gc) {
         super.render(gc);

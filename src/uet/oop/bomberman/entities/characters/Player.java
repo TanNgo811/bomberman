@@ -2,17 +2,21 @@ package uet.oop.bomberman.entities.characters;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.GameLoop;
+
 import uet.oop.bomberman.Sandbox;
 import uet.oop.bomberman.boundedbox.RectBoundedBox;
-import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.bomb.Bomb;
+import uet.oop.bomberman.entities.powerups.PowerUp;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.levels.Level;
 
+import java.util.ArrayList;
 
-public class Player extends AnimatedEntity {
+import static uet.oop.bomberman.Sandbox.getBlock;
 
+public class Player extends Character {
 
     Direction currentDirection;
     Direction _direction;
@@ -22,16 +26,19 @@ public class Player extends AnimatedEntity {
 
     double reduceBoundarySizePercent=0.45;
     double scale = 1;
+
+    protected int bombCount = 1;
+    protected int powerUpsCount = 0;
+    protected int bombRadius = 2;
+    protected int playerSpeed = 2;
+    protected ArrayList<PowerUp> powerUps = new ArrayList<>();
+
     public Player(int x, int y, Image img) {
         super( x, y, img);
 
         this.boundary = new RectBoundedBox(x+6, y+6, 20, 26);
     }
 
-//    @Override
-//    public void kill() {
-//
-//    }
 
     public double getScale() {
         return scale;
@@ -54,7 +61,7 @@ public class Player extends AnimatedEntity {
                 case UP:
                     if(checkCollisions(x, y - step)) {
                         this.y -= step;
-                        this.img = Sprite.movingSprite(Sprite.player_right, Sprite.player_up_1, Sprite.player_up_2, _animate, 20).getFxImage();
+                        this.img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, _animate, 20).getFxImage();
                         currentDirection = Direction.UP;
                     }
                     break;
@@ -82,17 +89,14 @@ public class Player extends AnimatedEntity {
                     if(checkCollisions(x - step, y)) {
                         this.x -= step;
                         this.img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, _animate, 20).getFxImage();
-//                    setCurrentSprite(playerAnimations.getMoveRightSprite());
                         currentDirection = Direction.LEFT;
                     }
                     break;
 
                 default:
                     this.img = Sprite.player_right.getFxImage();
-//                    setCurrentSprite(playerAnimations.getPlayerIdleSprite());
             }
         }
-//        System.out.println("Player: x="+x+" y="+y+" bw="+this.boundary.getBoundary().getWidth()+" bh="+this.boundary.getBoundary().getHeight());
     }
 
     public boolean isColliding(Entity b){
@@ -113,11 +117,45 @@ public class Player extends AnimatedEntity {
                 return false;
             }
         }
-//        this.boundary.setPosition(x, y,0);
-//        System.out.println("no colliding");
         return true;
     }
 
+    public boolean hasBomb() {
+        return (bombCount > 0);
+    }
+
+    public void addBomb() {
+        bombCount++;
+    }
+    public void setSpeed(int playerSpeed) {
+        this.playerSpeed = playerSpeed;
+    }
+
+    public int getSpeed() {
+        return playerSpeed;
+    }
+
+    public void setBombRadius(int bombRadius) {
+        this.bombRadius = bombRadius;
+    }
+
+    public int getRadius() {
+        return bombRadius;
+    }
+
+    public void dropBomb() {
+        Entity bombPlaced = new Bomb(this.getXUnit() , this.getYUnit(), Sprite.bomb.getFxImage());
+        Sandbox.addEntity(bombPlaced);
+        System.out.println("Drop Bomb");
+        bombCount--;
+    }
+
+    @Override
+    public void kill() {
+        isKilled = true;
+        System.out.println("killed");
+        remove();
+    }
 
     @Override
     public void update() {
@@ -126,7 +164,11 @@ public class Player extends AnimatedEntity {
 
     @Override
     public void render(GraphicsContext gc) {
+        if (isKilled)
+            this.img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, _animate, 60).getFxImage();
         super.render(gc);
+        gc.strokeRect(this.boundary.getBoundary().getMinX(),this.boundary.getBoundary().getMinY()
+                ,this.boundary.getBoundary().getWidth(),this.boundary.getBoundary().getHeight());
     }
 
     public double getReduceBoundarySizePercent() {
