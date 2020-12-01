@@ -22,14 +22,19 @@ public class Level {
     public static ArrayList<Entity> powerUps = new ArrayList<>();
 
     public static Player player;
-
+    public static int level = 1;
 
     public static void createMap() {
 
         try {
-            File level = new File(".\\res\\levels\\Level1.txt");
-            Scanner sc = new Scanner(level);
-            int _LEVEL = sc.nextInt(); // System.out.println(_LEVEL);
+            layerObjects.removeAll(layerObjects);
+            block.removeAll(block);
+            enemies.removeAll(enemies);
+            powerUps.removeAll(powerUps);
+
+            File levelFile = new File(".\\res\\levels\\Level" + level + ".txt");
+            Scanner sc = new Scanner(levelFile);
+            level = sc.nextInt(); // System.out.println(_LEVEL);
             int _HEIGHT = sc.nextInt(); // System.out.println(_HEIGHT);
             int _WIDTH = sc.nextInt(); // System.out.println(_WIDTH);
             Entity object;

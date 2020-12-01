@@ -35,8 +35,6 @@ public class Sandbox {
     public static ArrayList<Entity> enemies = new ArrayList<>();
     public static ArrayList<Entity> bombs = new ArrayList<>();
 
-    public static PowerUpFlame flameItem;
-
     public static Player player;
 
     static Scene s;
@@ -44,7 +42,20 @@ public class Sandbox {
     static Canvas c;
     static GraphicsContext gc;
 
-    private static void init() {
+    public static void init() {
+        Level.createMap();
+
+        layerObjects = Level.getLayerObjects();
+        blockObjects = Level.getBlockObjects();
+        enemies = Level.getEnemies();
+        powerUps = Level.getPowerUps();
+        player = Level.getPlayer();
+        bombs.removeAll(bombs);
+
+        EventHandler.attachEventHandlers(s);
+    }
+
+    public static void setupScene(){
         root = new Group();
         s = new Scene(root);
         c = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -53,20 +64,8 @@ public class Sandbox {
         gc.setStroke(Color.BLUE);
         gc.setLineWidth(2);
         gc.setFill(Color.BLUE);
-//        Renderer.init();
         start(gc);
 
-        Level.createMap();
-
-        layerObjects = Level.getLayerObjects();
-        blockObjects = Level.getBlockObjects();
-        enemies = Level.getEnemies();
-        powerUps = Level.getPowerUps();
-        player = Level.getPlayer();
-        EventHandler.attachEventHandlers(s);
-    }
-
-    public static void setupScene(){
         init();
     }
 
@@ -182,6 +181,12 @@ public class Sandbox {
     public static void updatePortal() {
         if (!player.checkCollisionsWithPortal(player.getX(), player.getY())) {
             System.out.println("Touch Portal");
+            if (Sandbox.getEnemies().isEmpty()) {
+                Level.level++;
+                Sandbox.init();
+            } else {
+                System.out.println("Kill all to pass this level");
+            }
         }
     }
 
@@ -198,7 +203,7 @@ public class Sandbox {
         return player;
     }
 
-    public ArrayList<Entity> getEnemies() {
+    public static ArrayList<Entity> getEnemies() {
         return enemies;
     }
 
@@ -206,7 +211,7 @@ public class Sandbox {
         return bombs;
     }
 
-    public ArrayList<Entity> getLayerObjects() {
+    public static ArrayList<Entity> getLayerObjects() {
         return layerObjects;
     }
 

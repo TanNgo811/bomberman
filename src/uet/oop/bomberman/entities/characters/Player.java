@@ -90,8 +90,6 @@ public class Player extends Character {
                         if (checkCollisions(x + step, y)) {
                             this.x += step;
                             this.img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, _animate, 60).getFxImage();
-
-
                             currentDirection = Direction.RIGHT;
                         }
                         break;
@@ -117,6 +115,7 @@ public class Player extends Character {
     public void dieImg() {
         if (deathCountDown == 0) {
             this.img = null;
+            Sandbox.init();
          } else {
             this.img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, _animate, 60).getFxImage();
             deathCountDown--;
@@ -234,6 +233,7 @@ public class Player extends Character {
     public void addBomb() {
         bombCount++;
     }
+
     public void setSpeed(int playerSpeed){
         this.playerSpeed = playerSpeed;
     }
