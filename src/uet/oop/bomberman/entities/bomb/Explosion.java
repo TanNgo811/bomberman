@@ -21,6 +21,7 @@ public class Explosion extends AnimatedEntity {
     public Explosion(int x, int y, Image img, Direction direction) {
         super(x,y,img);
         this.direction = direction;
+        System.out.println("created");
         switch (direction) {
             case UP: case DOWN:
 //                this.img = Sprite.movingSprite(Sprite.explosion_vertical, Sprite.explosion_vertical1, Sprite.explosion_vertical2, _animate, 10).getFxImage();
@@ -35,25 +36,26 @@ public class Explosion extends AnimatedEntity {
         }
     }
 
-//    public boolean isColliding(Entity b){
-//        if (b != null) {
-//            RectBoundedBox otherEntityBoundary = b.getBoundary();
-//            return this.boundary.checkCollision(otherEntityBoundary);
-//        }
-//        return false;
-//    }
+    public boolean isColliding(Entity b){
+        if (b != null) {
+            RectBoundedBox otherEntityBoundary = b.getBoundary();
+            return this.boundary.checkCollision(otherEntityBoundary);
+        }
+        return false;
+    }
 
-//    public boolean checkCollisions(int _x, int _y){
-//        this.boundary.setPosition(_x, _y, 0);
-//        boolean check = true;
-//        for (Entity e : Sandbox.blockObjects) {
-//            if (isColliding(e)) {
-//                this.boundary.setPosition(x, y, 0);
-//                check = false;
-//            }
-//        }
-//        return check;
-//    }
+    public boolean checkCollisions(int _x, int _y){
+        this.boundary.setPosition(_x, _y, 0);
+        boolean check = true;
+        for (Entity e : Sandbox.blockObjects) {
+            if (isColliding(e)) {
+                this.boundary.setPosition(x, y, 0);
+                System.out.println("blocked");
+                check = false;
+            }
+        }
+        return check;
+    }
 
 
     @Override
@@ -69,9 +71,9 @@ public class Explosion extends AnimatedEntity {
     public void render(GraphicsContext gc) {
 
 
-        Entity wall = Sandbox.getBlock(x, y);
-        if (wall instanceof Wall)
-            this.img = null;
+//        Entity wall = Sandbox.getBlock(x, y);
+//        if (wall instanceof Wall)
+//            this.img = null;
         super.render(gc);
     }
 }

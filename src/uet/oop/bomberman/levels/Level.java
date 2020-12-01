@@ -70,14 +70,17 @@ public class Level {
                             case 'b':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 powerUps.add(new PowerUpBomb(i, j, Sprite.powerup_bombs.getFxImage()));
+                                block.add(new Brick(i,j,Sprite.brick.getFxImage()));
                                 break;
                             case 'f':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 powerUps.add(new PowerUpFlame(i, j, Sprite.powerup_flames.getFxImage()));
+                                block.add(new Brick(i,j,Sprite.brick.getFxImage()));
                                 break;
                             case 's':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 powerUps.add(new PowerUpSpeed(i, j, Sprite.powerup_speed.getFxImage()));
+                                block.add(new Brick(i,j,Sprite.brick.getFxImage()));
                                 break;
                             default:
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));

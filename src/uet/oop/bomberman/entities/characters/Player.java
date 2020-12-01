@@ -12,6 +12,7 @@ import uet.oop.bomberman.entities.powerups.PowerUp;
 import uet.oop.bomberman.entities.powerups.PowerUpBomb;
 import uet.oop.bomberman.entities.powerups.PowerUpFlame;
 import uet.oop.bomberman.entities.powerups.PowerUpSpeed;
+import uet.oop.bomberman.entities.tiles.Portal;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.Level;
 
@@ -34,17 +35,20 @@ public class Player extends Character {
     protected int powerUpsCount = 0;
     protected int bombRadius = 1;
     protected int playerSpeed = 2;
+
     private int deathCountDown = 15;
+    private int overload = 30;
+    protected boolean canDropBomb = true;
 
     protected ArrayList<PowerUp> powerUps = new ArrayList<>();
     protected PowerUpFlame flameItem;
     protected PowerUpBomb bombItem;
     protected PowerUpSpeed speedItem;
+    protected Portal portal;
 
     public Player(int x, int y, Image img) {
         super( x, y, img);
         this.isKilled = false;
-//        this.boundary = new RectBoundedBox(x+6, y-6, 20, 26);
         this.boundary = new RectBoundedBox(x, y + 6, 20, 28);
     }
 
@@ -114,7 +118,7 @@ public class Player extends Character {
         if (deathCountDown == 0) {
             this.img = null;
          } else {
-            this.img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, _animate, 80).getFxImage();
+            this.img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, _animate, 60).getFxImage();
             deathCountDown--;
         }
     }
@@ -130,9 +134,10 @@ public class Player extends Character {
             if (e != this && isColliding(e)) {
                 this.boundary.setPosition(x, y, 0);
 
-                System.out.println("Player x=" + getX() + " y="
-                        + getY() + " colliding with x=" + e.getX()
-                        + " y=" + e.getY());
+//                Debug
+//                System.out.println("Player x=" + getX() + " y="
+//                        + getY() + " colliding with x=" + e.getX()
+//                        + " y=" + e.getY());
 
                 return false;
             }
@@ -164,6 +169,7 @@ public class Player extends Character {
                 if (isColliding(e)) {
                     flameItem = (PowerUpFlame) e;
                     this.boundary.setPosition(x, y, 0);
+                    ((PowerUpFlame) e).setActive();
                     return false;
                 }
             }
@@ -178,6 +184,7 @@ public class Player extends Character {
                 if (isColliding(e)) {
                     bombItem = (PowerUpBomb) e;
                     this.boundary.setPosition(x, y, 0);
+                    ((PowerUpBomb) e).setActive();
                     return false;
                 }
             }
@@ -200,9 +207,28 @@ public class Player extends Character {
         return true;
     }
 
+    public boolean checkCollisionsWithPortal(int _x, int _y) {
+        this.boundary.setPosition(_x, _y,0);
+        for (Entity e : Sandbox.layerObjects) {
+            if (e instanceof Portal) {
+                if (isColliding(e)) {
+                    portal = (Portal) e;
+                    this.boundary.setPosition(x, y, 0);
+                    ((Portal) e).setActive();
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     public boolean hasBomb() {
         return (bombCount > 0);
+    }
+
+    public boolean canDropBomb() {
+        return canDropBomb;
     }
 
     public void addBomb() {
@@ -229,6 +255,7 @@ public class Player extends Character {
         Sandbox.addBomb(bombPlaced);
         System.out.println("Drop Bomb");
         bombCount--;
+        canDropBomb = false;
     }
 
     @Override
@@ -245,8 +272,13 @@ public class Player extends Character {
         if (isKilled) {
             remove();
         }
-
-
+        if (!canDropBomb && !isKilled)
+            if (overload > 0)
+                overload--;
+            else {
+                canDropBomb = true;
+                overload = 30;
+            }
     }
 
     @Override

@@ -36,8 +36,8 @@ public abstract class Entity {
 
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
-        gc.strokeRect(this.boundary.getBoundary().getMinX(),this.boundary.getBoundary().getMinY()
-                ,this.boundary.getBoundary().getWidth(),this.boundary.getBoundary().getHeight());
+//        gc.strokeRect(this.boundary.getBoundary().getMinX(),this.boundary.getBoundary().getMinY()
+//                ,this.boundary.getBoundary().getWidth(),this.boundary.getBoundary().getHeight());
     }
     public abstract void update();
 

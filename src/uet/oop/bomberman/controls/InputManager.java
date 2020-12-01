@@ -17,24 +17,24 @@ public class InputManager {
         Player player = Level.getPlayer();
 //        System.err.println(""+keyboardInputs);
         if(keyboardInputs.contains(KeyCode.UP) || keyboardInputs.contains(KeyCode.W)){
-            System.out.println("Go Up");
+//            System.out.println("Go Up");
             player.move(player.getSpeed(), Direction.UP);
         }
         if(keyboardInputs.contains(KeyCode.DOWN) || keyboardInputs.contains(KeyCode.S)){
-            System.out.println("Go Down");
+//            System.out.println("Go Down");
             player.move(player.getSpeed(),Direction.DOWN);
         }
         if(keyboardInputs.contains(KeyCode.LEFT) || keyboardInputs.contains(KeyCode.A)){
-            System.out.println("Go Left");
+//            System.out.println("Go Left");
             player.move(player.getSpeed(),Direction.LEFT);
         }
         if(keyboardInputs.contains(KeyCode.RIGHT) || keyboardInputs.contains(KeyCode.D)){
-            System.out.println("Go Right");
+//            System.out.println("Go Right");
             player.move(player.getSpeed(),Direction.RIGHT);
 
         }
         if (keyboardInputs.contains(KeyCode.SPACE)){
-            if(player.hasBomb()) {
+            if(player.hasBomb() && player.canDropBomb()) {
                 player.dropBomb();
             }
         }

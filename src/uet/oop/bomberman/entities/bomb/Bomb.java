@@ -31,6 +31,7 @@ public class Bomb extends AnimatedEntity {
         System.out.println("Boom!");
         explosions = new FullExplosion(this.getXUnit(), this.getYUnit(), Sprite.bomb_exploded2.getFxImage(), player.getRadius());
 //        explosions = new FullExplosion(this.getXUnit(), this.getYUnit(), Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, _animate, 10).getFxImage(), player.getRadius());
+        Sandbox.addBomb(explosions);
         for (Entity e : explosions.getExplosions()) {
             Sandbox.addBomb(e);
         }

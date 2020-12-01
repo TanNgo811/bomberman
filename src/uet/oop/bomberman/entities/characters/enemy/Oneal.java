@@ -14,9 +14,9 @@ public class Oneal  extends Enemy {
     Player player = Sandbox.player;
     public Oneal(int x, int y, Image img) {
         super( x, y, img);
-        this._speed = 5;
-//        _ai = new AIMedium(player, this);
-        _ai = new AILow();
+        this._speed = 3;
+        _ai = new AIMedium(player, this);
+//        _ai = new AILow();
         direction = Direction.values()[_ai.calculateDirection()];
     }
 

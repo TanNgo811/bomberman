@@ -113,7 +113,7 @@ public class Sandbox {
             else powerUps.get(i).update();
         }
         updateItem();
-
+        updatePortal();
 
     }
 
@@ -121,8 +121,8 @@ public class Sandbox {
         gc.clearRect(0, 0, c.getWidth(), c.getHeight());
         layerObjects.forEach(g -> g.render(gc));
         bombs.forEach(g -> g.render(gc));
-        blockObjects.forEach(g -> g.render(gc));
         powerUps.forEach(g -> g.render(gc));
+        blockObjects.forEach(g -> g.render(gc));
         enemies.forEach(g -> g.render(gc));
         player.render(gc);
     }
@@ -175,10 +175,14 @@ public class Sandbox {
 
         if (!player.checkCollisionsWithPowerUpSpeed(player.getX(), player.getY())) {
             System.out.println("Touch Speed Item");
-            player.setSpeed(4);
+            player.setSpeed(player.getSpeed() + 1);
         }
+    }
 
-
+    public static void updatePortal() {
+        if (!player.checkCollisionsWithPortal(player.getX(), player.getY())) {
+            System.out.println("Touch Portal");
+        }
     }
 
 
