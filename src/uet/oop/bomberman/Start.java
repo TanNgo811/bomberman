@@ -9,8 +9,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
 
-import static javafx.application.Application.launch;
-
 public class Start extends Application {
 
     @Override
@@ -22,6 +20,8 @@ public class Start extends Application {
 //        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setScene(new Scene(root, 992, 416));
         primaryStage.show();
+
+        SoundEffect.playLoop(SoundEffect.mainMenu);
     }
 
 
