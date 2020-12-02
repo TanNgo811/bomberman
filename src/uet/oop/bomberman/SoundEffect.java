@@ -15,9 +15,12 @@ public class SoundEffect extends Application {
 
 //    URL urlBackSound = new File
     //Background Sound
-    File soundFile = new File("./res/sound/backSound.mp3");
+//    File soundFile = new File("./res/sound/backSound.mp3");
 //    public static Media mediaBackSound = new Media(new File("F:\\OOP Code\\bomber_fx_2\\bomberman\\res\\sound\\backSound.mp3").toURI().toString());
-    public static Media mediaBackSound = new Media(new File("F:\\OOP Code\\bomber_fx_2\\bomberman\\src\\uet\\oop\\bomberman\\eatItem.wav").toURI().toString());
+    public static Media mediaBackSound = new Media("src\\audio\\backSound.mp3");
+//    public static Media mediaBackSound = new Media(soundFile.toString());
+
+
 
     //    C:\Users\corng\Downloads\Compressed\Bomber-main_2\Bomber-main\src\Sound
     public static MediaPlayer mediaPlayerBackSound = new MediaPlayer(mediaBackSound);
