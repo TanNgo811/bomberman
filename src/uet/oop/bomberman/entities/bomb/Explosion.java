@@ -9,10 +9,8 @@ import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.Player;
 import uet.oop.bomberman.entities.characters.enemy.Enemy;
-import uet.oop.bomberman.entities.tiles.*;
 import uet.oop.bomberman.entities.tiles.destroyable.Brick;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.levels.Level;
 
 public class Explosion extends AnimatedEntity {
 
@@ -21,19 +19,6 @@ public class Explosion extends AnimatedEntity {
     public Explosion(int x, int y, Image img, Direction direction) {
         super(x,y,img);
         this.direction = direction;
-        System.out.println("created");
-        switch (direction) {
-            case UP: case DOWN:
-//                this.img = Sprite.movingSprite(Sprite.explosion_vertical, Sprite.explosion_vertical1, Sprite.explosion_vertical2, _animate, 10).getFxImage();
-                this.img = Sprite.explosion_vertical2.getFxImage();
-                break;
-            case LEFT: case RIGHT:
-//                this.img = Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, _animate, 10).getFxImage();
-                this.img = Sprite.explosion_horizontal2.getFxImage();
-                break;
-            default:
-                break;
-        }
     }
 
     public boolean isColliding(Entity b){
@@ -46,15 +31,13 @@ public class Explosion extends AnimatedEntity {
 
     public boolean checkCollisions(int _x, int _y){
         this.boundary.setPosition(_x, _y, 0);
-        boolean check = true;
         for (Entity e : Sandbox.blockObjects) {
             if (isColliding(e)) {
                 this.boundary.setPosition(x, y, 0);
-                System.out.println("blocked");
-                check = false;
+                return true;
             }
         }
-        return check;
+        return false;
     }
 
 
@@ -69,11 +52,18 @@ public class Explosion extends AnimatedEntity {
 
     @Override
     public void render(GraphicsContext gc) {
-
-
-//        Entity wall = Sandbox.getBlock(x, y);
-//        if (wall instanceof Wall)
-//            this.img = null;
+        switch (direction) {
+            case UP: case DOWN:
+                this.img = Sprite.movingSprite(Sprite.explosion_vertical2, Sprite.explosion_vertical1, Sprite.explosion_vertical, _animate, 30).getFxImage();
+//                this.img = Sprite.explosion_vertical2.getFxImage();
+                break;
+            case LEFT: case RIGHT:
+                this.img = Sprite.movingSprite(Sprite.explosion_horizontal2, Sprite.explosion_horizontal1, Sprite.explosion_horizontal, _animate, 30).getFxImage();
+//                this.img = Sprite.explosion_horizontal2.getFxImage();
+                break;
+            default:
+                break;
+        }
         super.render(gc);
     }
 }

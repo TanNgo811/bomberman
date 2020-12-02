@@ -9,7 +9,6 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.characters.Character;
 import uet.oop.bomberman.entities.characters.enemy.AI.AI;
-import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Enemy extends Character {
 
@@ -37,7 +36,13 @@ public abstract class Enemy extends Character {
     public boolean checkCollisions(int _x, int _y) {
         this.boundary.setPosition(_x, _y,0);
         for (Entity e : Sandbox.blockObjects) {
-            if (e != this && isColliding(e)) {
+            if (isColliding(e)) {
+                this.boundary.setPosition(x, y,0);
+                return false;
+            }
+        }
+        for (Entity e : Sandbox.bombs) {
+            if (e instanceof Bomb && isColliding(e)) {
                 this.boundary.setPosition(x, y,0);
                 return false;
             }
