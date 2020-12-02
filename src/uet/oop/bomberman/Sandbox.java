@@ -6,14 +6,11 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-
 import uet.oop.bomberman.controls.EventHandler;
 import uet.oop.bomberman.controls.InputManager;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.characters.enemy.Enemy;
 import uet.oop.bomberman.entities.characters.Player;
-import uet.oop.bomberman.entities.powerups.PowerUp;
-import uet.oop.bomberman.entities.powerups.PowerUpFlame;
+import uet.oop.bomberman.entities.characters.enemy.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.Level;
 
@@ -52,6 +49,7 @@ public class Sandbox {
         player = Level.getPlayer();
         bombs.removeAll(bombs);
 
+        SoundEffect.stageStart.play(0.5);
         EventHandler.attachEventHandlers(s);
     }
 
@@ -164,16 +162,19 @@ public class Sandbox {
     public static void updateItem() {
         if (!player.checkCollisionsWithPowerUpFlame(player.getX(), player.getY())) {
             System.out.println("Touch Flame");
+            SoundEffect.powerUp.play(0.25);
             player.setBombRadius(2);
         }
 
         if (!player.checkCollisionsWithPowerUpBomb(player.getX(), player.getY())) {
             System.out.println("Touch Bomb Item");
+            SoundEffect.powerUp.play(0.25);
             player.addBomb();
         }
 
         if (!player.checkCollisionsWithPowerUpSpeed(player.getX(), player.getY())) {
             System.out.println("Touch Speed Item");
+            SoundEffect.powerUp.play(0.25);
             player.setSpeed(player.getSpeed() + 1);
         }
     }
