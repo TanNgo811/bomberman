@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="416.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uet.oop.bomberman.gui.MainController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="418.0" stroke="BLACK" strokeType="INSIDE" width="1002.0" />
+            <ImageView fitHeight="359.0" fitWidth="372.0" layoutX="315.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../res/NES-BM.jpg" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="185.0" layoutX="295.0" layoutY="233.0" stroke="BLACK" strokeType="INSIDE" width="413.0" />
+            <Button fx:id="singleBtn" layoutX="338.0" layoutY="284.0" mnemonicParsing="false" onAction="#handleSingle" prefHeight="39.0" prefWidth="102.0" style="-fx-background-color: none;" text="SINGLE" textFill="WHITE">
+               <font>
+                  <Font name="Montserrat Semi Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="multiBtn" layoutX="310.0" layoutY="337.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="159.0" style="-fx-background-color: none;" text="MULTIPLAYER" textFill="WHITE">
+               <font>
+                  <Font name="Montserrat Semi Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="helpBtn" layoutX="572.0" layoutY="284.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: none;" text="HELP" textFill="WHITE">
+               <font>
+                  <Font name="Montserrat Semi Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="soundBtn" layoutX="538.0" layoutY="337.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="159.0" style="-fx-background-color: none;" text="SOUND: ON" textFill="WHITE">
+               <font>
+                  <Font name="Montserrat Semi Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

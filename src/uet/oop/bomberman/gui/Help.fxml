@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="416.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uet.oop.bomberman.gui.HelpController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="416.0" stroke="BLACK" strokeType="INSIDE" width="992.0" />
+      <Label layoutX="423.0" layoutY="59.0" text="HOW TO PLAY" textFill="WHITE">
+         <font>
+            <Font name="Montserrat Semi Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="315.0" layoutY="122.0" prefHeight="73.0" prefWidth="362.0" text="A, W, S, D or UP, DOWN, LEFT, RIGHT Button to Move the Player" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="iCielGotham-Medium" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="315.0" layoutY="188.0" prefHeight="39.0" prefWidth="362.0" text="SPACE Button to Place Bomb" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="iCielGotham-Medium" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="315.0" layoutY="235.0" prefHeight="39.0" prefWidth="313.0" text="Kill all the Ememy and Find the Portal to move to the Next Level" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="iCielGotham-Medium" size="16.0" />
+         </font>
+      </Label>
+
+       <Button fx:id="backBtn" layoutX="417.0" layoutY="334.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="39.0" prefWidth="159.0" style="-fx-background-color: none;" text="BACK" textFill="WHITE">
+           <font>
+               <Font name="Montserrat Semi Bold" size="16.0" />
+           </font>
+           <cursor>
+               <Cursor fx:constant="HAND" />
+           </cursor>
+       </Button>
+   </children>
+</AnchorPane>

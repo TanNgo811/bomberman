@@ -30,6 +30,8 @@ public class BombermanGame extends Application {
         Scene s = Sandbox.getS();
         primaryStage.setScene(s);
         primaryStage.show();
+
+//        SoundEffect.sound(SoundEffect.mediaPlayerBackSound);
     }
 
     public static void main(String[] args) {

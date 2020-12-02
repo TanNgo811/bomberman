@@ -11,12 +11,11 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Oneal  extends Enemy {
 
-    Player player = Sandbox.player;
+    Player player = Sandbox.getPlayer();
     public Oneal(int x, int y, Image img) {
         super( x, y, img);
         this._speed = 3;
         _ai = new AIMedium(player, this);
-//        _ai = new AILow();
         direction = Direction.values()[_ai.calculateDirection()];
     }
 
@@ -40,27 +39,43 @@ public class Oneal  extends Enemy {
     }
 
     @Override
+    public boolean moveUp() {
+        img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, _animate, 60).getFxImage();
+        return super.moveLeft();
+    }
+
+    @Override
+    public boolean moveDown() {
+        img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, _animate, 60).getFxImage();
+        return super.moveRight();
+    }
+
+    @Override
     public void update() {
         super.update();
         if (direction == Direction.LEFT) {
             if (!moveLeft()) {
                 direction = Direction.values()[_ai.calculateDirection()];
             }
+            moveLeft();
         }
         if (direction == Direction.RIGHT) {
             if (!moveRight()) {
                 direction = Direction.values()[_ai.calculateDirection()];
             }
+            moveRight();
         }
         if (direction == Direction.UP) {
             if (!moveUp()) {
                 direction = Direction.values()[_ai.calculateDirection()];
             }
+            moveUp();
         }
         if (direction == Direction.DOWN) {
             if (!moveDown()) {
                 direction = Direction.values()[_ai.calculateDirection()];
             }
+            moveDown();
         }
     }
 
