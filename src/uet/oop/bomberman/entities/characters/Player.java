@@ -2,8 +2,8 @@ package uet.oop.bomberman.entities.characters;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-
 import uet.oop.bomberman.Sandbox;
+import uet.oop.bomberman.SoundEffect;
 import uet.oop.bomberman.boundedbox.RectBoundedBox;
 import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.Entity;
@@ -14,7 +14,6 @@ import uet.oop.bomberman.entities.powerups.PowerUpFlame;
 import uet.oop.bomberman.entities.powerups.PowerUpSpeed;
 import uet.oop.bomberman.entities.tiles.Portal;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.levels.Level;
 
 import java.util.ArrayList;
 
@@ -38,6 +37,7 @@ public class Player extends Character {
 
     private int deathCountDown = 15;
     private int overload = 30;
+    private int moveDelay = 15;
     protected boolean canDropBomb = true;
 
     protected ArrayList<PowerUp> powerUps = new ArrayList<>();
@@ -65,7 +65,7 @@ public class Player extends Character {
 
 
     public void move(int step, Direction direction) {
-        if (isKilled == false) {
+        if (!isKilled) {
             if (step == 0) {
                 return;
             } else {
@@ -104,11 +104,14 @@ public class Player extends Character {
 
                     default:
                         this.img = Sprite.player_right.getFxImage();
-
+                }
+                if (moveDelay > 0) moveDelay--; else {
+                    SoundEffect.playerWalkH.play(0.25);
+                    moveDelay = 15;
                 }
             }
         } else {
-                dieImg();
+            dieImg();
         }
     }
 
@@ -253,6 +256,7 @@ public class Player extends Character {
     public void dropBomb() {
         Bomb bombPlaced = new Bomb(this.getXUnit(), this.getYUnit(), Sprite.bomb.getFxImage());
         Sandbox.addBomb(bombPlaced);
+        SoundEffect.bombDrop.play(0.5);
         System.out.println("Drop Bomb");
         bombCount--;
         canDropBomb = false;

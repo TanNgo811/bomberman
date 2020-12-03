@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.bomb;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.Sandbox;
+import uet.oop.bomberman.SoundEffect;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.Player;
@@ -21,7 +22,6 @@ public class Bomb extends AnimatedEntity {
 
     public Bomb(int x, int y, Image img){
         super(x, y, img);
-        this.canCollide = false;
         this.isExploded = false;
         System.out.println(x + " " + y);
     }
@@ -29,8 +29,8 @@ public class Bomb extends AnimatedEntity {
     public void explode() {
         isExploded = true;
         System.out.println("Boom!");
+        SoundEffect.bombExplode.play(0.5);
         explosions = new FullExplosion(this.getXUnit(), this.getYUnit(), Sprite.bomb_exploded2.getFxImage(), player.getRadius());
-//        explosions = new FullExplosion(this.getXUnit(), this.getYUnit(), Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, _animate, 10).getFxImage(), player.getRadius());
         Sandbox.addBomb(explosions);
         for (Entity e : explosions.getExplosions()) {
             Sandbox.addBomb(e);
@@ -61,9 +61,9 @@ public class Bomb extends AnimatedEntity {
     @Override
     public void render(GraphicsContext gc) {
         if (!isExploded) {
-            this.img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, _animate, 120).getFxImage();
+            this.img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, _animate, 60).getFxImage();
         } else {
-            this.img = Sprite.bomb_exploded2.getFxImage();
+            this.img = null;
         }
         super.render(gc);
     }

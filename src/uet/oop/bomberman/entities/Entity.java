@@ -15,7 +15,6 @@ public abstract class Entity {
     protected Image img;
 
     protected RectBoundedBox boundary;
-    protected boolean canCollide;
 
     protected boolean isRemoved = false;
 
@@ -26,7 +25,6 @@ public abstract class Entity {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
-        this.canCollide = false;
         this.boundary = new RectBoundedBox(x, y, 32, 32);
     }
 
@@ -57,17 +55,9 @@ public abstract class Entity {
         return y / Sprite.SCALED_SIZE;
     }
 
-    public void setCollision(boolean canCollide) {
-        this.canCollide = canCollide;
-    }
-
-    public boolean canCollide() {
-        return canCollide;
-    }
-
     public void remove() {
         isRemoved = true;
-    };
+    }
 
     public boolean isRemoved() {
         return isRemoved;

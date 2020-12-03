@@ -2,7 +2,6 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public abstract class AnimatedEntity extends Entity {
 
@@ -11,7 +10,6 @@ public abstract class AnimatedEntity extends Entity {
 
     public AnimatedEntity(int x, int y, Image img) {
         super(x, y, img);
-        this.canCollide = true;
     }
 
     protected void animate() {

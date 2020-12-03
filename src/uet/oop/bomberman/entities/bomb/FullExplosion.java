@@ -8,12 +8,11 @@ import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.Player;
 import uet.oop.bomberman.entities.characters.enemy.Enemy;
-import uet.oop.bomberman.entities.tiles.destroyable.Brick;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
 
-public class FullExplosion extends Entity {
+public class FullExplosion extends AnimatedEntity {
 
     protected int radius;
     protected ArrayList<Explosion> explosions = new ArrayList<>();
@@ -25,22 +24,22 @@ public class FullExplosion extends Entity {
         for (int i = 1; i <= radius; i++) {
             Explosion ex = new Explosion(x, y - i, Sprite.explosion_vertical2.getFxImage(), Direction.UP);
             explosions.add(ex);
-            if (!ex.checkCollisions(ex.getX(), ex.getY())) break;
+            if (ex.checkCollisions(ex.getX(), ex.getY())) break;
         }
         for (int i = 1; i <= radius; i++) {
             Explosion ex = new Explosion(x, y + i, Sprite.explosion_vertical2.getFxImage(), Direction.DOWN);
             explosions.add(ex);
-            if (!ex.checkCollisions(ex.getX(), ex.getY())) break;
+            if (ex.checkCollisions(ex.getX(), ex.getY())) break;
         }
         for (int i = 1; i <= radius; i++) {
             Explosion ex = new Explosion(x - i, y, Sprite.explosion_vertical2.getFxImage(), Direction.LEFT);
             explosions.add(ex);
-            if (!ex.checkCollisions(ex.getX(), ex.getY())) break;
+            if (ex.checkCollisions(ex.getX(), ex.getY())) break;
         }
         for (int i = 1; i <= radius; i++) {
             Explosion ex = new Explosion(x + i, y, Sprite.explosion_vertical2.getFxImage(), Direction.RIGHT);
             explosions.add(ex);
-            if (!ex.checkCollisions(ex.getX(), ex.getY())) break;
+            if (ex.checkCollisions(ex.getX(), ex.getY())) break;
         }
     }
 
@@ -64,7 +63,7 @@ public class FullExplosion extends Entity {
 
     @Override
     public void render(GraphicsContext gc) {
+        this.img = Sprite.movingSprite(Sprite.bomb_exploded2, Sprite.bomb_exploded1, Sprite.bomb_exploded, _animate, 30).getFxImage();
         super.render(gc);
-//        explosions.forEach(e -> e.render(gc));
     }
 }
