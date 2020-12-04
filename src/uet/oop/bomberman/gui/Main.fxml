@@ -25,7 +25,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="multiBtn" layoutX="310.0" layoutY="337.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="159.0" style="-fx-background-color: none;" text="MULTIPLAYER" textFill="WHITE">
+            <Button fx:id="multiBtn" layoutX="310.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleMulti" prefHeight="39.0" prefWidth="159.0" style="-fx-background-color: none;" text="MULTIPLAYER" textFill="WHITE">
                <font>
                   <Font name="Montserrat Semi Bold" size="16.0" />
                </font>

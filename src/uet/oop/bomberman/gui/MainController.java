@@ -65,6 +65,15 @@ public class MainController implements Initializable {
         stage.setScene(scene);
     }
 
+    public void handleMulti(ActionEvent actionEvent) throws IOException {
+        URL url = new File("src\\uet\\oop\\bomberman\\gui\\Multi.fxml").toURI().toURL();
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        Parent editViewParent = loader.load(url);
+        Scene scene = new Scene(editViewParent);
+        stage.setScene(scene);
+    }
+
     public void handleSound(ActionEvent actionEvent) {
 
         if (!state) {
