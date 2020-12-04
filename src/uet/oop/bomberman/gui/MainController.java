@@ -1,6 +1,5 @@
 package uet.oop.bomberman.gui;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,13 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.SoundEffect;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,9 +33,12 @@ public class MainController implements Initializable {
 
     final String HOVERED_BUTTON_STYLE = "-fx-background-color: white; -fx-text-fill: black;";
     final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent;";
+    boolean state = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
         setStyleOnHover(helpBtn);
         setStyleOnHover(singleBtn);
         setStyleOnHover(multiBtn);
@@ -63,5 +63,21 @@ public class MainController implements Initializable {
         Parent editViewParent = loader.load(url);
         Scene scene = new Scene(editViewParent);
         stage.setScene(scene);
+    }
+
+    public void handleSound(ActionEvent actionEvent) {
+
+        if (!state) {
+            SoundEffect.pauseSound();
+            SoundEffect.setCanPlay(false);
+            soundBtn.setText("SOUND: OFF");
+            state = true;
+        } else {
+            SoundEffect.playLoop(SoundEffect.mainMenu);
+            SoundEffect.setCanPlay(true);
+            soundBtn.setText("SOUND: ON");
+            state = false;
+        }
+
     }
 }

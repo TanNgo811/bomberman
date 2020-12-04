@@ -106,7 +106,9 @@ public class Player extends Character {
                         this.img = Sprite.player_right.getFxImage();
                 }
                 if (moveDelay > 0) moveDelay--; else {
-                    SoundEffect.playerWalkH.play(0.25);
+                    if (SoundEffect.isCanPlay()) {
+                        SoundEffect.playerWalkH.play(0.25);
+                    }
                     moveDelay = 15;
                 }
             }
@@ -256,7 +258,9 @@ public class Player extends Character {
     public void dropBomb() {
         Bomb bombPlaced = new Bomb(this.getXUnit(), this.getYUnit(), Sprite.bomb.getFxImage());
         Sandbox.addBomb(bombPlaced);
-        SoundEffect.bombDrop.play(0.5);
+        if (SoundEffect.isCanPlay()) {
+            SoundEffect.bombDrop.play(0.5);
+        }
         System.out.println("Drop Bomb");
         bombCount--;
         canDropBomb = false;

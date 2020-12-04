@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 public class BombermanGame extends Application {
     
     public static final int WIDTH = 31;
@@ -17,7 +16,9 @@ public class BombermanGame extends Application {
         primaryStage.setScene(s);
         primaryStage.show();
 
-        SoundEffect.playLoop(SoundEffect.mainStage);
+        if (SoundEffect.isCanPlay()) {
+            SoundEffect.playLoop(SoundEffect.mainStage);
+        }
 
     }
 

@@ -48,8 +48,10 @@ public class Sandbox {
         powerUps = Level.getPowerUps();
         player = Level.getPlayer();
         bombs.removeAll(bombs);
+        if (SoundEffect.isCanPlay()) {
+            SoundEffect.stageStart.play(0.5);
 
-        SoundEffect.stageStart.play(0.5);
+        }
         EventHandler.attachEventHandlers(s);
     }
 
@@ -162,19 +164,27 @@ public class Sandbox {
     public static void updateItem() {
         if (!player.checkCollisionsWithPowerUpFlame(player.getX(), player.getY())) {
             System.out.println("Touch Flame");
-            SoundEffect.powerUp.play(0.25);
-            player.setBombRadius(2);
+            if (SoundEffect.isCanPlay()) {
+                SoundEffect.powerUp.play(0.25);
+
+            }
+            player.setBombRadius(player.getRadius() + 1);
         }
 
         if (!player.checkCollisionsWithPowerUpBomb(player.getX(), player.getY())) {
             System.out.println("Touch Bomb Item");
-            SoundEffect.powerUp.play(0.25);
+            if (SoundEffect.isCanPlay()) {
+                SoundEffect.powerUp.play(0.25);
+
+            }
             player.addBomb();
         }
 
         if (!player.checkCollisionsWithPowerUpSpeed(player.getX(), player.getY())) {
             System.out.println("Touch Speed Item");
-            SoundEffect.powerUp.play(0.25);
+            if (SoundEffect.isCanPlay()) {
+                SoundEffect.powerUp.play(0.25);
+            }
             player.setSpeed(player.getSpeed() + 1);
         }
     }

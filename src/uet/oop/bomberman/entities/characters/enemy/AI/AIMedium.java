@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities.characters.enemy.AI;
 
+import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.characters.enemy.Enemy;
 import uet.oop.bomberman.entities.characters.Player;
 
@@ -23,18 +24,27 @@ public class AIMedium extends AI{
 
         if(vertical == 1) {
             int v = calculateRowDirection();
-            if(v != -1)
+            if(v != -1) {
+//                System.out.println(Direction.values()[v]);
                 return v;
-            else
+            }
+            else {
+//                System.out.println(Direction.values()[calculateColDirection()]);
                 return calculateColDirection();
+            }
 
         } else {
             int h = calculateColDirection();
 
-            if(h != -1)
+            if(h != -1) {
+//                System.out.println(Direction.values()[h]);
                 return h;
-            else
+            }
+            else {
+//                System.out.println(Direction.values()[calculateRowDirection()]);
                 return calculateRowDirection();
+            }
+
         }
     }
 

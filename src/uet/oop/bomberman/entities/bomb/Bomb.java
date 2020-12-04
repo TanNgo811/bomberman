@@ -29,7 +29,9 @@ public class Bomb extends AnimatedEntity {
     public void explode() {
         isExploded = true;
         System.out.println("Boom!");
-        SoundEffect.bombExplode.play(0.5);
+        if (SoundEffect.isCanPlay()) {
+            SoundEffect.bombExplode.play(0.5);
+        }
         explosions = new FullExplosion(this.getXUnit(), this.getYUnit(), Sprite.bomb_exploded2.getFxImage(), player.getRadius());
         Sandbox.addBomb(explosions);
         for (Entity e : explosions.getExplosions()) {

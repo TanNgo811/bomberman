@@ -21,7 +21,9 @@ public class Start extends Application {
         primaryStage.setScene(new Scene(root, 992, 416));
         primaryStage.show();
 
-        SoundEffect.playLoop(SoundEffect.mainMenu);
+        if (SoundEffect.isCanPlay()) {
+            SoundEffect.playLoop(SoundEffect.mainMenu);
+        }
     }
 
 

@@ -10,12 +10,9 @@ import java.io.File;
 
 public class SoundEffect extends Application {
 
-//    URL urlBackSound = new File
-    //Background Sound
-//    File soundFile = new File("./res/sound/backSound.mp3");
-//    public static Media mediaBackSound = new Media(new File("F:\\OOP Code\\bomber_fx_2\\bomberman\\res\\sound\\backSound.mp3").toURI().toString());
-//    public static Media mediaBackSound = new Media("src\\audio\\backSound.mp3");
-//    public static Media mediaBackSound = new Media(soundFile.toString());
+
+
+    private static boolean canPlay = true;
 
     public static Media mainStage = new Media(new File("res/sound/03_Stage Theme.mp3").toURI().toString());
     public static Media mainMenu = new Media(new File("res/sound/01_Title Screen.mp3").toURI().toString());
@@ -30,10 +27,6 @@ public class SoundEffect extends Application {
     public static AudioClip playerWalkH = new AudioClip((new File("res/sound/walk_horiz.wav")).toURI().toString());
 
     public static MediaPlayer mediaPlayer = new MediaPlayer(mainMenu);
-    //    C:\Users\corng\Downloads\Compressed\Bomber-main_2\Bomber-main\src\Sound
-//    public static MediaPlayer mediaPlayerBackSound = new MediaPlayer(mediaBackSound);
-
-//    MediaView mediaView = new MediaView(mediaPlayerBackSound);
 
     public static void sound(Media m) {
         mediaPlayer = new MediaPlayer(m);
@@ -42,26 +35,31 @@ public class SoundEffect extends Application {
     }
 
     public static void playLoop(Media m) {
-        mediaPlayer.stop();
-        mediaPlayer = new MediaPlayer(m);
-        mediaPlayer.setVolume(0.3);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setAutoPlay(true);
+        if (isCanPlay()) {
+            mediaPlayer.stop();
+            mediaPlayer = new MediaPlayer(m);
+            mediaPlayer.setVolume(0.3);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.setAutoPlay(true);
+        }
+
 //        System.out.println("play");
     }
 
+    public static void pauseSound() {
+        mediaPlayer.stop();
+    }
+
+    public static boolean isCanPlay() {
+        return canPlay;
+    }
+
+    public static void setCanPlay(boolean canPlay) {
+        SoundEffect.canPlay = canPlay;
+    }
+
     public void start(Stage primaryStage) throws Exception {
-//        sound(mediaPlayerBackSound);
-////        Group root = new Group(mediaView);
-//        Scene scene = new Scene(root, 500, 200);
-//
-//        // Show the stage
-//        primaryStage.setTitle("Media Player");
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-//
-//        // Play the media once the stage is shown
-//        mediaPlayerBackSound.play();
+
 
     }
 

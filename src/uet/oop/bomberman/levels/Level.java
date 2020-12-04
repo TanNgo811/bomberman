@@ -2,9 +2,8 @@ package uet.oop.bomberman.levels;
 
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.*;
-import uet.oop.bomberman.entities.characters.enemy.Balloon;
+import uet.oop.bomberman.entities.characters.enemy.*;
 import uet.oop.bomberman.entities.tiles.destroyable.Brick;
-import uet.oop.bomberman.entities.characters.enemy.Oneal;
 import uet.oop.bomberman.entities.powerups.*;
 import uet.oop.bomberman.entities.tiles.*;
 import uet.oop.bomberman.graphics.Sprite;
@@ -71,6 +70,16 @@ public class Level {
                             case '2':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 enemies.add(new Oneal(i, j, Sprite.oneal_right1.getFxImage()));
+                                break;
+                            case '3':
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                enemies.add(new Doll(i, j, Sprite.doll_right1.getFxImage()));
+                            case '4':
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                enemies.add(new Kondoria(i, j, Sprite.kondoria_right1.getFxImage()));
+                            case '5':
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                enemies.add(new Minvo(i, j, Sprite.minvo_right1.getFxImage()));
                                 break;
                             case 'b':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));

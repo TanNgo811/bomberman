@@ -19,6 +19,7 @@ public abstract class Enemy extends Character {
     protected double rest;
     protected AI _ai;
     protected Direction direction;
+    protected boolean _moving;
 
     protected int deathCountDown = 75;
 
@@ -53,32 +54,40 @@ public abstract class Enemy extends Character {
     public boolean moveLeft() {
         if (checkCollisions(x - _speed, y)) {
             x -= _speed;
+            _moving = true;
             return true;
         }
+        _moving = false;
         return false;
     }
 
     public boolean moveRight() {
         if (checkCollisions(x + _speed, y)) {
             x += _speed;
+            _moving = true;
             return true;
         }
+        _moving = false;
         return false;
     }
 
     public boolean moveUp() {
         if (checkCollisions(x, y - _speed)) {
             y -= _speed;
+            _moving = true;
             return true;
         }
+        _moving = false;
         return false;
     }
 
     public boolean moveDown() {
         if (checkCollisions(x, y + _speed)) {
             y += _speed;
+            _moving = true;
             return true;
         }
+        _moving = false;
         return false;
     }
 
