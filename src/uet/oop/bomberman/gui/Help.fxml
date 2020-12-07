@@ -19,7 +19,7 @@
             <Font name="iCielGotham-Medium" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="315.0" layoutY="188.0" prefHeight="39.0" prefWidth="362.0" text="SPACE Button to Place Bomb" textFill="WHITE" wrapText="true">
+      <Label layoutX="315.0" layoutY="188.0" prefHeight="39.0" prefWidth="362.0" text="SPACE, RIGHT SHIFT Button to Place Bomb" textFill="WHITE" wrapText="true">
          <font>
             <Font name="iCielGotham-Medium" size="16.0" />
          </font>

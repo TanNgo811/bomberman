@@ -35,6 +35,8 @@ public class MainController implements Initializable {
     final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent;";
     boolean state = false;
 
+    public static boolean multiMode = false;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -72,6 +74,7 @@ public class MainController implements Initializable {
         Parent editViewParent = loader.load(url);
         Scene scene = new Scene(editViewParent);
         stage.setScene(scene);
+        setMultiMode(true);
     }
 
     public void handleSound(ActionEvent actionEvent) {
@@ -88,5 +91,13 @@ public class MainController implements Initializable {
             state = false;
         }
 
+    }
+
+    public static boolean isMultiMode() {
+        return multiMode;
+    }
+
+    public void setMultiMode(boolean multiMode) {
+        this.multiMode = multiMode;
     }
 }

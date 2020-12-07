@@ -101,8 +101,8 @@ public class Oneal  extends Enemy {
             }
         }
         super.render(gc);
-        gc.strokeRect(this.boundary.getBoundary().getMinX(),this.boundary.getBoundary().getMinY()
-                ,this.boundary.getBoundary().getWidth(),this.boundary.getBoundary().getHeight());
+//        gc.strokeRect(this.boundary.getBoundary().getMinX(),this.boundary.getBoundary().getMinY()
+//                ,this.boundary.getBoundary().getWidth(),this.boundary.getBoundary().getHeight());
 
     }
 

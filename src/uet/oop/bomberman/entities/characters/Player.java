@@ -292,8 +292,8 @@ public class Player extends Character {
     @Override
     public void render (GraphicsContext gc){
         super.render(gc);
-        gc.strokeRect(this.boundary.getBoundary().getMinX(), this.boundary.getBoundary().getMinY()
-                , this.boundary.getBoundary().getWidth(), this.boundary.getBoundary().getHeight());
+//        gc.strokeRect(this.boundary.getBoundary().getMinX(), this.boundary.getBoundary().getMinY()
+//                , this.boundary.getBoundary().getWidth(), this.boundary.getBoundary().getHeight());
     }
 
     public double getReduceBoundarySizePercent() {

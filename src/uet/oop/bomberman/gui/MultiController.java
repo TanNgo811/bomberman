@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import uet.oop.bomberman.BomberMulti;
 import uet.oop.bomberman.BombermanGame;
 
 import java.io.File;
@@ -44,8 +43,8 @@ public class MultiController implements Initializable {
     }
 
     public void handleContinue(ActionEvent actionEvent){
-        BomberMulti gameMulti = new BomberMulti();
+        BombermanGame game = new BombermanGame();
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        gameMulti.start(stage);
+        game.start(stage);
     }
 }
