@@ -21,6 +21,7 @@ public class Level {
     public static ArrayList<Entity> powerUps = new ArrayList<>();
 
     public static Player player;
+    public static Player2 player2;
     public static int level = 1;
 
     public static void createMap() {
@@ -51,6 +52,10 @@ public class Level {
                             case 'p':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 player = new Player(i, j, Sprite.player_right.getFxImage());
+                                break;
+                            case 'z':
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                player2 = new Player2(i, j, Sprite.player2_right.getFxImage());
                                 break;
                             case '*':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
@@ -109,12 +114,21 @@ public class Level {
 
     }
 
+    public static void createMultiplayerMap() {
+        level = 0;
+        createMap();
+    }
+
     /*
     Getter & Setter
      */
 
     public static Player getPlayer() {
         return player;
+    }
+
+    public static Player2 getPlayer2() {
+        return player2;
     }
 
     public static ArrayList<Entity> getBlock() {

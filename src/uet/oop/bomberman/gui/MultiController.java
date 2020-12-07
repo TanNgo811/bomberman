@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import uet.oop.bomberman.BomberMulti;
+import uet.oop.bomberman.BombermanGame;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,5 +41,11 @@ public class MultiController implements Initializable {
         Parent editViewParent = loader.load(url);
         Scene scene = new Scene(editViewParent);
         stage.setScene(scene);
+    }
+
+    public void handleContinue(ActionEvent actionEvent){
+        BomberMulti gameMulti = new BomberMulti();
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        gameMulti.start(stage);
     }
 }

@@ -21,7 +21,7 @@
             </font>
         </Label>
 
-        <Button fx:id="backBtn" layoutX="417.0" layoutY="334.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="39.0" prefWidth="159.0" style="-fx-background-color: none;" text="BACK" textFill="WHITE">
+        <Button fx:id="backBtn" layoutX="417.0" layoutY="334.0" mnemonicParsing="false" onAction="#handleContinue" prefHeight="39.0" prefWidth="159.0" style="-fx-background-color: none;" text="CONTINUE" textFill="WHITE">
             <font>
                 <Font name="Montserrat Semi Bold" size="16.0" />
             </font>

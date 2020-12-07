@@ -4,14 +4,13 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class BombermanGame extends Application {
-    
+public class BomberMulti extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
 
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("BomberNoBrain");
-        Sandbox.setupScene();
+        primaryStage.setTitle("Bomber Multiplayer");
+        Sandbox.setupMultiPlayerScene();
         Scene s = Sandbox.getS();
         primaryStage.setScene(s);
         primaryStage.show();
@@ -25,6 +24,4 @@ public class BombermanGame extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-
 }
