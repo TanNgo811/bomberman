@@ -157,7 +157,6 @@ public class Sandbox {
             if (powerUps.get(i).isRemoved()) powerUps.remove(i);
             else powerUps.get(i).update();
         }
-        updateItem();
         updatePortal();
 
     }
@@ -184,59 +183,6 @@ public class Sandbox {
 
     public static void addEnemy(Enemy e) {
         enemies.add(e);
-    }
-
-    public static Entity getEntity(int x, int y) {
-        int xUnit = x / Sprite.SCALED_SIZE;
-        int yUnit = y / Sprite.SCALED_SIZE;
-        for (Entity e : enemies) {
-            if (e.getXUnit() == xUnit && e.getYUnit() == yUnit)
-                return e;
-        }
-        for (Entity e : powerUps) {
-            if (e.getXUnit() == xUnit && e.getYUnit() == yUnit)
-                return e;
-        }
-        return null;
-    }
-
-    public static Entity getBlock(int x, int y) {
-        int xUnit = x / Sprite.SCALED_SIZE;
-        int yUnit = y / Sprite.SCALED_SIZE;
-        for (Entity e : blockObjects) {
-            if (e.getXUnit() == xUnit && e.getYUnit() == yUnit) {
-                return e;
-            }
-        }
-        return null;
-    }
-
-    public static void updateItem() {
-        if (!player.checkCollisionsWithPowerUpFlame(player.getX(), player.getY())) {
-            System.out.println("Touch Flame");
-            if (SoundEffect.isCanPlay()) {
-                SoundEffect.powerUp.play(0.25);
-
-            }
-            player.setBombRadius(player.getRadius() + 1);
-        }
-
-        if (!player.checkCollisionsWithPowerUpBomb(player.getX(), player.getY())) {
-            System.out.println("Touch Bomb Item");
-            if (SoundEffect.isCanPlay()) {
-                SoundEffect.powerUp.play(0.25);
-
-            }
-            player.addBomb();
-        }
-
-        if (!player.checkCollisionsWithPowerUpSpeed(player.getX(), player.getY())) {
-            System.out.println("Touch Speed Item");
-            if (SoundEffect.isCanPlay()) {
-                SoundEffect.powerUp.play(0.25);
-            }
-            player.setSpeed(player.getSpeed() + 1);
-        }
     }
 
     public static void updatePortal() {
