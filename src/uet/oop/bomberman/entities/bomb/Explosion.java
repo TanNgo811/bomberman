@@ -7,7 +7,6 @@ import uet.oop.bomberman.boundedbox.RectBoundedBox;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.characters.Player;
 import uet.oop.bomberman.entities.characters.enemy.Enemy;
 import uet.oop.bomberman.entities.tiles.destroyable.Brick;
 import uet.oop.bomberman.graphics.Sprite;
@@ -43,11 +42,16 @@ public class Explosion extends AnimatedEntity {
 
     @Override
     public void update() {
-        Entity mob = Sandbox.getEntity(x, y);
-        Entity brick = Sandbox.getBlock(x, y);
-        if (mob instanceof Player) ((Player) mob).kill();
-        if (mob instanceof Enemy) ((Enemy) mob).kill();
-        if (brick instanceof Brick) ((Brick) brick).destroy();
+        if (Sandbox.player.getXUnit() == this.getXUnit() && Sandbox.player.getYUnit() == this.getYUnit())
+            Sandbox.player.kill();
+        for (Entity e : Sandbox.enemies) {
+            if (e.getXUnit() == this.getXUnit() && e.getYUnit() == this.getYUnit())
+                ((Enemy) e).kill();
+        }
+        for (Entity e : Sandbox.blockObjects) {
+            if (e.getXUnit() == this.getXUnit() && e.getYUnit() == this.getYUnit() && e instanceof Brick)
+                ((Brick) e).destroy();
+        }
     }
 
     @Override

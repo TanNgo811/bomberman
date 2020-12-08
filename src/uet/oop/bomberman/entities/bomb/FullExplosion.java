@@ -6,7 +6,6 @@ import uet.oop.bomberman.Sandbox;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.characters.Player;
 import uet.oop.bomberman.entities.characters.enemy.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -56,9 +55,12 @@ public class FullExplosion extends AnimatedEntity {
 
     @Override
     public void update() {
-        Entity mob = Sandbox.getEntity(x, y);
-        if (mob instanceof Player) ((Player) mob).kill();
-        if (mob instanceof Enemy) ((Enemy) mob).kill();
+        if (Sandbox.player.getXUnit() == this.getXUnit() && Sandbox.player.getYUnit() == this.getYUnit())
+            Sandbox.player.kill();
+        for (Entity e : Sandbox.enemies) {
+            if (e.getXUnit() == this.getXUnit() && e.getYUnit() == this.getYUnit())
+                ((Enemy) e).kill();
+        }
     }
 
     @Override
