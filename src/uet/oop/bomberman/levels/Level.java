@@ -79,9 +79,11 @@ public class Level {
                             case '3':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 enemies.add(new Doll(i, j, Sprite.doll_right1.getFxImage()));
+                                break;
                             case '4':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 enemies.add(new Kondoria(i, j, Sprite.kondoria_right1.getFxImage()));
+                                break;
                             case '5':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 enemies.add(new Minvo(i, j, Sprite.minvo_right1.getFxImage()));
@@ -165,6 +167,10 @@ public class Level {
 
     public static void setPlayer(Player player) {
         Level.player = player;
+    }
+
+    public static void setPlayer2(Player2 player2) {
+        Level.player2 = player2;
     }
 
     public static void setPowerUps(ArrayList<Entity> powerUps) {

@@ -17,6 +17,7 @@ public class SoundEffect extends Application {
     public static Media mainStage = new Media(new File("res/sound/03_Stage Theme.mp3").toURI().toString());
     public static Media mainMenu = new Media(new File("res/sound/01_Title Screen.mp3").toURI().toString());
     public static Media endingStage = new Media(new File("res/sound/06_Ending.mp3").toURI().toString());
+    public static Media gameOver = new Media(new File("res/sound/07_Game Over.mp3").toURI().toString());
 
     public static AudioClip stageStart = new AudioClip((new File("res/sound/02_Stage Start.mp3")).toURI().toString()); // Dung khi cho vao Level scene
     public static AudioClip pass = new AudioClip((new File("res/sound/04_Stage Complete.mp3")).toURI().toString());
@@ -47,7 +48,7 @@ public class SoundEffect extends Application {
     }
 
     public static void pauseSound() {
-        mediaPlayer.stop();
+        mediaPlayer.pause();
     }
 
     public static boolean isCanPlay() {
@@ -59,7 +60,6 @@ public class SoundEffect extends Application {
     }
 
     public void start(Stage primaryStage) throws Exception {
-
 
     }
 
