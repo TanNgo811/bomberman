@@ -1,12 +1,9 @@
 package uet.oop.bomberman.controls;
 
 import javafx.scene.input.KeyCode;
-import uet.oop.bomberman.Sandbox;
 import uet.oop.bomberman.entities.Direction;
-import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.characters.Player;
 import uet.oop.bomberman.entities.characters.Player2;
-import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.gui.MainController;
 import uet.oop.bomberman.levels.Level;
 
@@ -18,7 +15,7 @@ public class InputManager {
         List keyboardInputs = EventHandler.getInputList();
         Player player = Level.getPlayer();
         Player2 player2 = Level.getPlayer2();
-        if (MainController.isMultiMode() == false) {
+        if (!MainController.isMultiMode()) {
 //            System.err.println(""+keyboardInputs);
             if(keyboardInputs.contains(KeyCode.UP) || keyboardInputs.contains(KeyCode.W)){
     //            System.out.println("Go Up");
@@ -36,6 +33,11 @@ public class InputManager {
     //            System.out.println("Go Right");
                 player.move(player.getSpeed(),Direction.RIGHT);
             }
+            if (keyboardInputs.contains(KeyCode.SPACE)){
+                if(player.hasBomb() && player.canDropBomb()) {
+                    player.dropBomb();
+                }
+            }
         } else {
             /*
         Player 1 Movement
@@ -49,11 +51,14 @@ public class InputManager {
             if(keyboardInputs.contains(KeyCode.A)){
                 player.move(player.getSpeed(),Direction.LEFT);
             }
-            if(keyboardInputs.contains(KeyCode.D)){
-                player.move(player.getSpeed(),Direction.RIGHT);
-
+            if(keyboardInputs.contains(KeyCode.D)) {
+                player.move(player.getSpeed(), Direction.RIGHT);
             }
-
+            if (keyboardInputs.contains(KeyCode.SPACE)) {
+                if (player.hasBomb() && player.canDropBomb()) {
+                    player.dropBomb();
+                }
+            }
         /*
         Player 2 Movement
         * */
@@ -66,43 +71,14 @@ public class InputManager {
             if(keyboardInputs.contains(KeyCode.LEFT)){
                 player2.move(player2.getSpeed(),Direction.LEFT);
             }
-            if(keyboardInputs.contains(KeyCode.RIGHT)){
-                player2.move(player2.getSpeed(),Direction.RIGHT);
-
+            if(keyboardInputs.contains(KeyCode.RIGHT)) {
+                player2.move(player2.getSpeed(), Direction.RIGHT);
             }
-
-            /*
-             * Player 2  Drop Bomb
-             * */
             if (keyboardInputs.contains(KeyCode.SHIFT)){
                 if(player2.hasBomb() && player2.canDropBomb()) {
                     player2.dropBomb();
                 }
             }
-        }
-
-        /*
-        * Player 1  Drop Bomb
-        * */
-        if (keyboardInputs.contains(KeyCode.SPACE)){
-            if(player.hasBomb() && player.canDropBomb()) {
-                player.dropBomb();
-            }
-        }
-
-
-        if (!keyboardInputs.contains(KeyCode.LEFT) &&
-                !keyboardInputs.contains(KeyCode.RIGHT) &&
-                !keyboardInputs.contains(KeyCode.UP) &&
-                !keyboardInputs.contains(KeyCode.DOWN) &&
-                !keyboardInputs.contains(KeyCode.W) &&
-                !keyboardInputs.contains(KeyCode.A) &&
-                !keyboardInputs.contains(KeyCode.S) &&
-                !keyboardInputs.contains(KeyCode.D)
-        )
-        {
-            player.move(0, Direction.DOWN);
-//            player2.move(0, Direction.DOWN);
         }
     }
 

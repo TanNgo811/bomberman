@@ -149,6 +149,7 @@ public class Sandbox {
             else blockObjects.get(i).update();
         }
         player.update();
+        player2.update();
         for (int i = 0; i < bombs.size(); i++) {
             if (bombs.get(i).isRemoved()) bombs.remove(i);
             else bombs.get(i).update();
@@ -158,7 +159,6 @@ public class Sandbox {
             else powerUps.get(i).update();
         }
         updatePortal();
-
     }
 
     public static void renderGame() {
@@ -169,6 +169,7 @@ public class Sandbox {
         blockObjects.forEach(g -> g.render(gc));
         enemies.forEach(g -> g.render(gc));
         player.render(gc);
+        player2.render(gc);
         if (MainController.isMultiMode()) {
             player2.render(gc);
         }

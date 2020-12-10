@@ -117,7 +117,6 @@ public class Player2 extends Character{
     public void dieImg() {
         if (deathCountDown == 0) {
             this.img = null;
-            Sandbox.init();
         } else {
             this.img = Sprite.movingSprite(Sprite.player2_dead1, Sprite.player2_dead2, Sprite.player2_dead3, _animate, 60).getFxImage();
             deathCountDown--;
@@ -132,7 +131,7 @@ public class Player2 extends Character{
     public boolean checkCollisions(int _x, int _y){
         this.boundary.setPosition(_x, _y, 0);
         for (Entity e : Sandbox.blockObjects) {
-            if (e != this && isColliding(e)) {
+            if (isColliding(e)) {
                 this.boundary.setPosition(x, y, 0);
 
 //                Debug
@@ -150,82 +149,46 @@ public class Player2 extends Character{
         this.boundary.setPosition(_x, _y,0);
         for (Entity e : Sandbox.enemies) {
             if (e != this && isColliding(e)) {
-                this.boundary.setPosition(x, y, 0);
+//                this.boundary.setPosition(x, y, 0);
                 return false;
             }
         }
         for (Entity e : Sandbox.bombs) {
             if (isColliding(e) && !(e instanceof Bomb) ) {
-                this.boundary.setPosition(x, y, 0);
+//                this.boundary.setPosition(x, y, 0);
                 return false;
             }
         }
         return true;
     }
 
-    public boolean checkCollisionsWithPowerUpFlame(int _x, int _y) {
+    public boolean checkCollisionsWithPowerUp(int _x, int _y) {
         this.boundary.setPosition(_x, _y,0);
-        for (Entity e : Sandbox.powerUps) {
-            if (e instanceof PowerUpFlame) {
-                if (isColliding(e)) {
-                    flameItem = (PowerUpFlame) e;
-                    this.boundary.setPosition(x, y, 0);
-                    ((PowerUpFlame) e).setActive();
-                    return false;
+        for (Entity e : Sandbox.powerUps)
+            if (isColliding(e)) {
+                ((PowerUp)e).setActive();
+                switch(e.getClass().getSimpleName()) {
+                    case "PowerUpBomb":
+                        this.addBomb();
+                        System.out.println(bombCount);
+                        break;
+                    case "PowerUpFlame":
+                        this.bombRadius++;
+                        System.out.println(bombRadius);
+                        break;
+                    case "PowerUpSpeed":
+                        this.playerSpeed++;
+                        System.out.println(playerSpeed);
+                        break;
                 }
+                return false;
+
             }
-        }
         return true;
     }
-
-    public boolean checkCollisionsWithPowerUpBomb(int _x, int _y) {
-        this.boundary.setPosition(_x, _y,0);
-        for (Entity e : Sandbox.powerUps) {
-            if (e instanceof PowerUpBomb) {
-                if (isColliding(e)) {
-                    bombItem = (PowerUpBomb) e;
-                    this.boundary.setPosition(x, y, 0);
-                    ((PowerUpBomb) e).setActive();
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public boolean checkCollisionsWithPowerUpSpeed(int _x, int _y) {
-        this.boundary.setPosition(_x, _y,0);
-        for (Entity e : Sandbox.powerUps) {
-            if (e instanceof PowerUpSpeed) {
-                if (isColliding(e)) {
-                    speedItem = (PowerUpSpeed) e;
-                    this.boundary.setPosition(x, y, 0);
-                    ((PowerUpSpeed) e).setActive();
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public boolean checkCollisionsWithPortal(int _x, int _y) {
-        this.boundary.setPosition(_x, _y,0);
-        for (Entity e : Sandbox.layerObjects) {
-            if (e instanceof Portal) {
-                if (isColliding(e)) {
-                    portal = (Portal) e;
-                    this.boundary.setPosition(x, y, 0);
-                    ((Portal) e).setActive();
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
 
     public boolean hasBomb() {
-        return (bombCount > 0);
+        return (this.bombCount > 0);
     }
 
     public boolean canDropBomb() {
@@ -234,6 +197,7 @@ public class Player2 extends Character{
 
     public void addBomb() {
         bombCount++;
+        System.out.println("Player2 return bomb " + bombCount);
     }
 
     public void setSpeed(int playerSpeed){
@@ -254,6 +218,7 @@ public class Player2 extends Character{
 
     public void dropBomb() {
         Bomb bombPlaced = new Bomb(this.getXUnit(), this.getYUnit(), Sprite.bomb.getFxImage());
+        bombPlaced.setPlayerDrop("Player2");
         Sandbox.addBomb(bombPlaced);
         if (SoundEffect.isCanPlay()) {
             SoundEffect.bombDrop.play(0.5);
@@ -271,6 +236,12 @@ public class Player2 extends Character{
     @Override
     public void update() {
         animate();
+        if (!this.checkCollisionsWithPowerUp(this.getX(), this.getY())) {
+            System.out.println("Touch PWRUP");
+            if (SoundEffect.isCanPlay()) {
+                SoundEffect.powerUp.play(0.25);
+            }
+        }
         if (!checkCollisionsWithEnemy(x, y)) {
             this.kill();
         }
@@ -289,8 +260,8 @@ public class Player2 extends Character{
     @Override
     public void render (GraphicsContext gc){
         super.render(gc);
-        gc.strokeRect(this.boundary.getBoundary().getMinX(), this.boundary.getBoundary().getMinY()
-                , this.boundary.getBoundary().getWidth(), this.boundary.getBoundary().getHeight());
+//        gc.strokeRect(this.boundary.getBoundary().getMinX(), this.boundary.getBoundary().getMinY()
+//                , this.boundary.getBoundary().getWidth(), this.boundary.getBoundary().getHeight());
     }
 
     public double getReduceBoundarySizePercent() {

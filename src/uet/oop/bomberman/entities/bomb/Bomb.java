@@ -7,22 +7,27 @@ import uet.oop.bomberman.SoundEffect;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.characters.Player;
+import uet.oop.bomberman.entities.characters.Player2;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.Level;
 
 public class Bomb extends AnimatedEntity {
 
     final Player player = Level.getPlayer() ;
+    final Player2 player2 = Level.getPlayer2() ;
+
 
     protected int timeDropped = 120;
     protected int timeExploded = 30;
     protected boolean isExploded;
+    protected String playerDrop;
 
     protected FullExplosion explosions;
 
     public Bomb(int x, int y, Image img){
         super(x, y, img);
         this.isExploded = false;
+        this.playerDrop = "";
         System.out.println(x + " " + y);
     }
 
@@ -37,7 +42,16 @@ public class Bomb extends AnimatedEntity {
         for (Entity e : explosions.getExplosions()) {
             Sandbox.addBomb(e);
         }
-        player.addBomb();
+        switch (playerDrop) {
+            case "Player":
+                player.addBomb();
+                break;
+            case "Player2":
+                player2.addBomb();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -58,6 +72,14 @@ public class Bomb extends AnimatedEntity {
         }
 
         animate();
+    }
+
+    public String getPlayerDrop() {
+        return playerDrop;
+    }
+
+    public void setPlayerDrop(String playerDrop) {
+        this.playerDrop = playerDrop;
     }
 
     @Override

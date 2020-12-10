@@ -14,13 +14,11 @@ import uet.oop.bomberman.entities.powerups.PowerUpFlame;
 import uet.oop.bomberman.entities.powerups.PowerUpSpeed;
 import uet.oop.bomberman.entities.tiles.Portal;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.gui.MainController;
 
 import java.util.ArrayList;
 
-
-
 public class Player extends Character {
-
     Direction currentDirection;
     Direction _direction;
     Sprite sprite;
@@ -120,7 +118,7 @@ public class Player extends Character {
     public void dieImg() {
         if (deathCountDown == 0) {
             this.img = null;
-            Sandbox.init();
+            if (!MainController.isMultiMode()) Sandbox.init();
          } else {
             this.img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, _animate, 60).getFxImage();
             deathCountDown--;
@@ -203,7 +201,6 @@ public class Player extends Character {
         return true;
     }
 
-
     public boolean hasBomb() {
         return (bombCount > 0);
     }
@@ -214,6 +211,7 @@ public class Player extends Character {
 
     public void addBomb() {
         bombCount++;
+        System.out.println("Player1 return bomb " + bombCount);
     }
 
     public void setSpeed(int playerSpeed){
@@ -234,6 +232,7 @@ public class Player extends Character {
 
     public void dropBomb() {
         Bomb bombPlaced = new Bomb(this.getXUnit(), this.getYUnit(), Sprite.bomb.getFxImage());
+        bombPlaced.setPlayerDrop("Player");
         Sandbox.addBomb(bombPlaced);
         if (SoundEffect.isCanPlay()) {
             SoundEffect.bombDrop.play(0.5);
@@ -282,5 +281,4 @@ public class Player extends Character {
     public double getReduceBoundarySizePercent() {
         return reduceBoundarySizePercent;
     }
-
 }
