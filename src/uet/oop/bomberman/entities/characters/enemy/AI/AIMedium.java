@@ -1,12 +1,8 @@
 package uet.oop.bomberman.entities.characters.enemy.AI;
 
-import uet.oop.bomberman.entities.Direction;
-import uet.oop.bomberman.entities.characters.enemy.AI.aStar.AStarPathFinder;
-import uet.oop.bomberman.entities.characters.enemy.AI.aStar.TileMap;
-import uet.oop.bomberman.entities.characters.enemy.Enemy;
 import uet.oop.bomberman.entities.characters.Player;
-import uet.oop.bomberman.entities.characters.enemy.Oneal;
-import uet.oop.bomberman.levels.Level;
+import uet.oop.bomberman.entities.characters.enemy.Enemy;
+import uet.oop.bomberman.graphics.Sprite;
 
 public class AIMedium extends AI{
 
@@ -18,8 +14,6 @@ public class AIMedium extends AI{
         _player = player;
         _enemy = enemy;
     }
-
-
 
     @Override
     public int calculateDirection() {
@@ -55,18 +49,18 @@ public class AIMedium extends AI{
     }
 
     protected int calculateColDirection() {
-        if(_player.getX() < _enemy.getX())
+        if(_player.getXUnit() * Sprite.SCALED_SIZE < _enemy.getX())
             return 3;
-        else if(_player.getX() > _enemy.getX())
+        else if(_player.getXUnit() * Sprite.SCALED_SIZE > _enemy.getX())
             return 1;
 
         return -1;
     }
 
     protected int calculateRowDirection() {
-        if(_player.getY() < _enemy.getY())
+        if(_player.getYUnit() * Sprite.SCALED_SIZE < _enemy.getY())
             return 0;
-        else if(_player.getY() > _enemy.getY())
+        else if(_player.getYUnit() * Sprite.SCALED_SIZE > _enemy.getY())
             return 2;
         return -1;
     }

@@ -2,24 +2,27 @@ package uet.oop.bomberman.entities.characters.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Sandbox;
 import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.characters.enemy.AI.AILow;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.util.Random;
+
 public class Minvo extends Enemy{
     public Minvo(int x, int y, Image img) {
         super(x, y, img);
 
-        this._speed = 2;
+        this._speed = 1;
         _ai = new AILow();
         direction = Direction.values()[_ai.calculateDirection()];
+
     }
 
     public boolean changemob = false;
     public int changedmodcountdown = 50;
     public int generateCreepsCountDown = 200;
+    Random e = new Random();
 
     @Override
     public void kill() {
@@ -40,30 +43,30 @@ public class Minvo extends Enemy{
     }
 
     public void generateCreeps() {
-
-        int types[] = new int[]{1, 2, 3};
-        int type = types[(int) (Math.random() * 3 + 0)];
-        switch(type) {
-            case 1: {
-                for (int i = 0; i < 1; i++) {
-                    Sandbox.enemies.add(new Kondoria(this.x, this.y, Sprite.kondoria_left1.getFxImage()));
-                }
+        int type = e.nextInt(5);
+        System.out.println(type);
+        switch (type) {
+            case 1:
+                Kondoria k = new Kondoria(this.getXUnit(), this.getYUnit(), Sprite.kondoria_left1.getFxImage());
+                Sandbox.enemies.add(k);
                 break;
-            }
-
-            case 2: {
-                for (int i = 0; i < 1; i++) {
-                    Sandbox.enemies.add(new Oneal(this.x, this.y, Sprite.oneal_left1.getFxImage()));
-                }
+            case 2:
+                Oneal o = new Oneal(this.getXUnit(), this.getYUnit(), Sprite.oneal_left1.getFxImage());
+                Sandbox.enemies.add(o);
                 break;
-            }
-            case 3: {
-                for (int i = 0; i < 1; i++) {
-                    Sandbox.enemies.add(new Doll(this.x, this.y, Sprite.doll_left1.getFxImage()));
-                }
+            case 3:
+                Doll d = new Doll(this.getXUnit(), this.getYUnit(), Sprite.doll_left1.getFxImage());
+                Sandbox.enemies.add(d);
                 break;
-            }
-            default: { break; }
+            case 4:
+                Balloon b = new Balloon(this.getXUnit(), this.getYUnit(), Sprite.balloom_right1.getFxImage());
+                Sandbox.enemies.add(b);
+                break;
+            case 0:
+                Ghost g = new Ghost(this.getXUnit(), this.getYUnit(), Sprite.ghost_left1.getFxImage());
+                Sandbox.enemies.add(g);
+            default:
+                break;
         }
     }
 
@@ -75,29 +78,35 @@ public class Minvo extends Enemy{
 //                generateCreeps();
                 direction = Direction.values()[_ai.calculateDirection()];
             }
-            moveLeft();
+//            moveLeft();
         }
         if (direction == Direction.RIGHT) {
             if (!moveRight()) {
 //                generateCreeps();
                 direction = Direction.values()[_ai.calculateDirection()];
             }
-            moveRight();
+//            moveRight();
         }
         if (direction == Direction.UP) {
             if (!moveUp()) {
 //                generateCreeps();
                 direction = Direction.values()[_ai.calculateDirection()];
             }
-            moveUp();
+//            moveUp();
         }
         if (direction == Direction.DOWN) {
             if (!moveDown()) {
 //                generateCreeps();
                 direction = Direction.values()[_ai.calculateDirection()];
             }
-            moveDown();
+//            moveDown();
         }
+        if (generateCreepsCountDown > 0) generateCreepsCountDown--;
+        else {
+            generateCreeps();
+            generateCreepsCountDown = 200;
+        }
+
     }
 
     @Override

@@ -34,7 +34,7 @@ public class Player extends Character {
     protected int playerSpeed = 2;
 
     private int deathCountDown = 15;
-    private int overload = 30;
+    private int overload = 15;
     private int moveDelay = 15;
     protected boolean canDropBomb = true;
 
@@ -47,7 +47,7 @@ public class Player extends Character {
     public Player(int x, int y, Image img) {
         super( x, y, img);
         this.isKilled = false;
-        this.boundary = new RectBoundedBox(x, y + 6, 20, 28);
+        this.boundary = new RectBoundedBox(x + 6, y + 6, 22, 28);
     }
 
 
@@ -110,13 +110,12 @@ public class Player extends Character {
                     moveDelay = 15;
                 }
             }
-        } else {
-            dieImg();
         }
     }
 
     public void dieImg() {
         if (deathCountDown == 0) {
+            remove();
             this.img = null;
             if (!MainController.isMultiMode()) Sandbox.init();
          } else {
@@ -260,6 +259,7 @@ public class Player extends Character {
             this.kill();
         }
         if (isKilled) {
+            dieImg();
             remove();
         }
         if (!canDropBomb && !isKilled)
@@ -267,7 +267,7 @@ public class Player extends Character {
                 overload--;
             else {
                 canDropBomb = true;
-                overload = 30;
+                overload = 15;
             }
     }
 

@@ -12,8 +12,8 @@ public class Doll extends Enemy{
         super(x, y, img);
 
         this._speed = 2;
-        _ai = new AILow();
-        direction = Direction.values()[_ai.calculateDirection()];
+        _ai =  new AILow();
+        direction = Direction.UP;
     }
 
     @Override
@@ -32,6 +32,18 @@ public class Doll extends Enemy{
     public boolean moveLeft() {
         img = Sprite.movingSprite(Sprite.doll_left1, Sprite.doll_left2, Sprite.doll_left3, _animate, 60).getFxImage();
         return super.moveLeft();
+    }
+
+    @Override
+    public boolean moveUp() {
+        img = Sprite.movingSprite(Sprite.doll_left1, Sprite.doll_left2, Sprite.doll_left3, _animate, 60).getFxImage();
+        return super.moveUp();
+    }
+
+    @Override
+    public boolean moveDown() {
+        img = Sprite.movingSprite(Sprite.doll_right1, Sprite.doll_right2, Sprite.doll_right3, _animate, 60).getFxImage();
+        return super.moveDown();
     }
 
     @Override
@@ -57,6 +69,10 @@ public class Doll extends Enemy{
                 direction = Direction.values()[_ai.calculateDirection()];
             }
         }
+
+//        if (this.x % (Sprite.SCALED_SIZE * 4) == Sprite.SCALED_SIZE && this.y % (Sprite.SCALED_SIZE * 4) == Sprite.SCALED_SIZE) {
+//            direction = Direction.values()[_ai.calculateDirection()];
+//        }
     }
 
     @Override

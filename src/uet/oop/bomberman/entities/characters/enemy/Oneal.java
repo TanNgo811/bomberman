@@ -2,8 +2,6 @@ package uet.oop.bomberman.entities.characters.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.Sandbox;
-import uet.oop.bomberman.boundedbox.RectBoundedBox;
 import uet.oop.bomberman.entities.Direction;
 import uet.oop.bomberman.entities.characters.Player;
 import uet.oop.bomberman.entities.characters.enemy.AI.AIMedium;
@@ -20,10 +18,9 @@ public class Oneal  extends Enemy {
     Player player = Level.getPlayer();
     public Oneal(int x, int y, Image img) {
         super( x, y, img);
-        this._speed = 3;
+        this._speed = 1;
         _ai = new AIMedium(player, this);
-        direction = Direction.values()[_ai.calculateDirection()];
-        this.boundary = new RectBoundedBox(x + 6, y + 6, 26, 26);
+        this.direction = Direction.values()[_ai.calculateDirection()];
 
         height = Level.height;
         width = Level.width;
@@ -62,68 +59,68 @@ public class Oneal  extends Enemy {
     }
 
 
-//    @Override
-//    public void update() {
-//        super.update();
-////        updateMap();
-////        display();
-//        if (direction == Direction.LEFT) {
-//            if (!moveLeft()) {
-//                direction = Direction.values()[_ai.calculateDirection()];
-//            }
-//            moveLeft();
-//        }
-//        if (direction == Direction.RIGHT) {
-//            if (!moveRight()) {
-//                direction = Direction.values()[_ai.calculateDirection()];
-//            }
-//            moveRight();
-//        }
-//        if (direction == Direction.UP) {
-//            if (!moveUp()) {
-//                direction = Direction.values()[_ai.calculateDirection()];
-//            }
-//            moveUp();
-//        }
-//        if (direction == Direction.DOWN) {
-//            if (!moveDown()) {
-//                direction = Direction.values()[_ai.calculateDirection()];
-//            }
-//            moveDown();
-//        }
-//
-//        this.direction = Direction.values()[_ai.calculateDirection()];
-//
-////        DEBUG
-////        System.out.println("PLayer pos " + player.getX() + " " + player.getY());
-//    }
-
     @Override
     public void update() {
         super.update();
 //        updateMap();
 //        display();
         if (direction == Direction.LEFT) {
-            moveLeft();
+            if (!moveLeft()) {
+                direction = Direction.values()[_ai.calculateDirection()];
+            }
+//            moveLeft();
         }
         if (direction == Direction.RIGHT) {
-            moveRight();
+            if (!moveRight()) {
+                direction = Direction.values()[_ai.calculateDirection()];
+            }
+//            moveRight();
         }
         if (direction == Direction.UP) {
-            moveUp();
+            if (!moveUp()) {
+                direction = Direction.values()[_ai.calculateDirection()];
+            }
+//            moveUp();
         }
         if (direction == Direction.DOWN) {
-            moveDown();
+            if (!moveDown()) {
+                direction = Direction.values()[_ai.calculateDirection()];
+            }
+//            moveDown();
         }
 
-        this.direction = Direction.values()[_ai.calculateDirection()];
+//        this.direction = Direction.values()[_ai.calculateDirection()];
+
+//        DEBUG
+//        System.out.println("PLayer pos " + player.getX() + " " + player.getY());
+    }
+
+//    @Override
+//    public void update() {
+//        super.update();
+////        updateMap();
+////        display();
+//        if (direction == Direction.LEFT) {
+//            moveLeft();
+//        }
+//        if (direction == Direction.RIGHT) {
+//            moveRight();
+//        }
+//        if (direction == Direction.UP) {
+//            moveUp();
+//        }
+//        if (direction == Direction.DOWN) {
+//            moveDown();
+//        }
+//
+//        this.direction = Direction.values()[_ai.calculateDirection()];
 
 //        DEBUG
 //        System.out.println("PLayer pos " + player.getX() + " " + player.getY());
 
 
 
-    }
+//    }
 
     @Override
     public void render(GraphicsContext gc) {

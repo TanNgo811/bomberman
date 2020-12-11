@@ -33,7 +33,7 @@ public class Player2 extends Character{
     protected int playerSpeed = 2;
 
     private int deathCountDown = 15;
-    private int overload = 30;
+    private int overload = 15;
     private int moveDelay = 15;
     protected boolean canDropBomb = true;
 
@@ -109,8 +109,6 @@ public class Player2 extends Character{
                     moveDelay = 15;
                 }
             }
-        } else {
-            dieImg();
         }
     }
 
@@ -246,6 +244,7 @@ public class Player2 extends Character{
             this.kill();
         }
         if (isKilled) {
+            dieImg();
             remove();
         }
         if (!canDropBomb && !isKilled)
@@ -253,7 +252,7 @@ public class Player2 extends Character{
                 overload--;
             else {
                 canDropBomb = true;
-                overload = 30;
+                overload = 15;
             }
     }
 

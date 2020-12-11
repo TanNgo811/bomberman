@@ -10,7 +10,7 @@ public class Kondoria extends Enemy{
     public Kondoria(int x, int y, Image img) {
         super(x, y, img);
 
-        this._speed = 1;
+        this._speed = 2;
         this._ai = new AILow();
         direction = Direction.values()[_ai.calculateDirection()];
 
@@ -37,24 +37,27 @@ public class Kondoria extends Enemy{
     @Override
     public void update() {
         super.update();
+        if (this.x % Sprite.SCALED_SIZE == 0 && this.y % Sprite.SCALED_SIZE == 0) {
+            direction = Direction.values()[_ai.calculateDirection()];
+        }
         if (direction == Direction.LEFT) {
             if (!moveLeft()) {
-                direction = Direction.values()[_ai.calculateDirection()];
+                direction = Direction.RIGHT;
             }
         }
         if (direction == Direction.RIGHT) {
             if (!moveRight()) {
-                direction = Direction.values()[_ai.calculateDirection()];
+                direction = Direction.LEFT;
             }
         }
         if (direction == Direction.UP) {
             if (!moveUp()) {
-                direction = Direction.values()[_ai.calculateDirection()];
+                direction = Direction.DOWN;
             }
         }
         if (direction == Direction.DOWN) {
             if (!moveDown()) {
-                direction = Direction.values()[_ai.calculateDirection()];
+                direction = Direction.UP;
             }
         }
     }
