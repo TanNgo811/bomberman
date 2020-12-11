@@ -1,8 +1,12 @@
 package uet.oop.bomberman.entities.characters.enemy.AI;
 
 import uet.oop.bomberman.entities.Direction;
+import uet.oop.bomberman.entities.characters.enemy.AI.aStar.AStarPathFinder;
+import uet.oop.bomberman.entities.characters.enemy.AI.aStar.TileMap;
 import uet.oop.bomberman.entities.characters.enemy.Enemy;
 import uet.oop.bomberman.entities.characters.Player;
+import uet.oop.bomberman.entities.characters.enemy.Oneal;
+import uet.oop.bomberman.levels.Level;
 
 public class AIMedium extends AI{
 
@@ -14,6 +18,8 @@ public class AIMedium extends AI{
         _player = player;
         _enemy = enemy;
     }
+
+
 
     @Override
     public int calculateDirection() {

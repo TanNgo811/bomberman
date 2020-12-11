@@ -12,6 +12,11 @@ import uet.oop.bomberman.levels.Level;
 
 public class Oneal  extends Enemy {
 
+    private static int height;
+    private static int width;
+    static char [][] map;
+
+
     Player player = Level.getPlayer();
     public Oneal(int x, int y, Image img) {
         super( x, y, img);
@@ -19,6 +24,10 @@ public class Oneal  extends Enemy {
         _ai = new AIMedium(player, this);
         direction = Direction.values()[_ai.calculateDirection()];
         this.boundary = new RectBoundedBox(x + 6, y + 6, 26, 26);
+
+        height = Level.height;
+        width = Level.width;
+        map = new char[height][width];
     }
 
     @Override
@@ -52,31 +61,58 @@ public class Oneal  extends Enemy {
         return super.moveDown();
     }
 
+
+//    @Override
+//    public void update() {
+//        super.update();
+////        updateMap();
+////        display();
+//        if (direction == Direction.LEFT) {
+//            if (!moveLeft()) {
+//                direction = Direction.values()[_ai.calculateDirection()];
+//            }
+//            moveLeft();
+//        }
+//        if (direction == Direction.RIGHT) {
+//            if (!moveRight()) {
+//                direction = Direction.values()[_ai.calculateDirection()];
+//            }
+//            moveRight();
+//        }
+//        if (direction == Direction.UP) {
+//            if (!moveUp()) {
+//                direction = Direction.values()[_ai.calculateDirection()];
+//            }
+//            moveUp();
+//        }
+//        if (direction == Direction.DOWN) {
+//            if (!moveDown()) {
+//                direction = Direction.values()[_ai.calculateDirection()];
+//            }
+//            moveDown();
+//        }
+//
+//        this.direction = Direction.values()[_ai.calculateDirection()];
+//
+////        DEBUG
+////        System.out.println("PLayer pos " + player.getX() + " " + player.getY());
+//    }
+
     @Override
     public void update() {
         super.update();
+//        updateMap();
+//        display();
         if (direction == Direction.LEFT) {
-            if (!moveLeft()) {
-                direction = Direction.values()[_ai.calculateDirection()];
-            }
             moveLeft();
         }
         if (direction == Direction.RIGHT) {
-            if (!moveRight()) {
-                direction = Direction.values()[_ai.calculateDirection()];
-            }
             moveRight();
         }
         if (direction == Direction.UP) {
-            if (!moveUp()) {
-                direction = Direction.values()[_ai.calculateDirection()];
-            }
             moveUp();
         }
         if (direction == Direction.DOWN) {
-            if (!moveDown()) {
-                direction = Direction.values()[_ai.calculateDirection()];
-            }
             moveDown();
         }
 

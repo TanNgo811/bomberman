@@ -17,8 +17,11 @@ public class Level {
 
     public static ArrayList<Entity> layerObjects = new ArrayList<>();
     public static ArrayList<Entity> block = new ArrayList<>();
+    public static ArrayList<Entity> wallOnly = new ArrayList<>();
     public static ArrayList<Entity> enemies = new ArrayList<>();
     public static ArrayList<Entity> powerUps = new ArrayList<>();
+
+    public static int height, width;
 
     public static Player player;
     public static Player2 player2;
@@ -37,6 +40,10 @@ public class Level {
             level = sc.nextInt(); // System.out.println(_LEVEL);
             int _HEIGHT = sc.nextInt(); // System.out.println(_HEIGHT);
             int _WIDTH = sc.nextInt(); // System.out.println(_WIDTH);
+
+            height = _HEIGHT;
+            width = _WIDTH;
+
             Entity object;
             while (!sc.nextLine().contains(";")) {
                 for (int j = 0; j < _HEIGHT; j++) {
@@ -48,6 +55,7 @@ public class Level {
                                 object = new Wall(i, j, Sprite.wall.getFxImage());
                                 layerObjects.add(object);
                                 block.add(object);
+                                wallOnly.add(object);
                                 break;
                             case 'p':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
@@ -87,6 +95,10 @@ public class Level {
                             case '5':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                                 enemies.add(new Minvo(i, j, Sprite.minvo_right1.getFxImage()));
+                                break;
+                            case '6':
+                                layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
+                                enemies.add(new Ghost(i, j, Sprite.ghost_right1.getFxImage()));
                                 break;
                             case 'b':
                                 layerObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
@@ -147,6 +159,14 @@ public class Level {
 
     public static ArrayList<Entity> getBlockObjects() {
         return block;
+    }
+
+    public static ArrayList<Entity> getWallOnly() {
+        return wallOnly;
+    }
+
+    public static void setWallOnly(ArrayList<Entity> wallOnly) {
+        Level.wallOnly = wallOnly;
     }
 
     public static ArrayList<Entity> getEnemies() {

@@ -33,6 +33,7 @@ public class Sandbox {
     public static ArrayList<Entity> blockObjects = new ArrayList<>();
     public static ArrayList<Entity> enemies = new ArrayList<>();
     public static ArrayList<Entity> bombs = new ArrayList<>();
+    public static ArrayList<Entity> wallOnly = new ArrayList<>();
 
     public static Player player;
     public static Player2 player2;
@@ -55,6 +56,7 @@ public class Sandbox {
 
         layerObjects = Level.getLayerObjects();
         blockObjects = Level.getBlockObjects();
+        wallOnly = Level.getWallOnly();
         enemies = Level.getEnemies();
         powerUps = Level.getPowerUps();
         player = Level.getPlayer();
@@ -94,40 +96,6 @@ public class Sandbox {
         init();
     }
 
-//    /*
-//    * Multiplayer
-//    * */
-//    public static void initMulti() {
-//        Level.createMultiplayerMap();
-//
-//        layerObjects = Level.getLayerObjects();
-//        blockObjects = Level.getBlockObjects();
-//        enemies = Level.getEnemies();
-//        powerUps = Level.getPowerUps();
-//        player = Level.getPlayer();
-//        player2 = Level.getPlayer2();
-//        bombs.removeAll(bombs);
-//        if (SoundEffect.isCanPlay()) {
-//            SoundEffect.stageStart.play(0.5);
-//
-//        }
-//        EventHandler.attachEventHandlers(s);
-//    }
-//
-//    public static void setupMultiPlayerScene(){
-//        root = new Group();
-//        s = new Scene(root);
-//        c = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-//        root.getChildren().add(c);
-//        gc = c.getGraphicsContext2D();
-//        gc.setStroke(Color.BLUE);
-//        gc.setLineWidth(2);
-//        gc.setFill(Color.BLUE);
-//        start(gc);
-//
-//        initMulti();
-//    }
-
     public static double getCurrentGameTime() {
         return currentGameTime;
     }
@@ -162,7 +130,11 @@ public class Sandbox {
             else blockObjects.get(i).update();
         }
         player.update();
-        if (MainController.isMultiMode()) player2.update();
+
+        if (MainController.isMultiMode()) {
+            player2.update();
+        }
+
         for (int i = 0; i < bombs.size(); i++) {
             if (bombs.get(i).isRemoved()) bombs.remove(i);
             else bombs.get(i).update();
