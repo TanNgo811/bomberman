@@ -62,9 +62,8 @@ public class Sandbox {
         player = Level.getPlayer();
         player2 = Level.getPlayer2();
         bombs.removeAll(bombs);
-        if (SoundEffect.isCanPlay()) {
+        if (SoundEffect.isCanPlay() && Level.level!=6) {
             SoundEffect.stageStart.play(0.5);
-
         }
         EventHandler.attachEventHandlers(s);
     }
