@@ -15,6 +15,7 @@ public class SoundEffect extends Application {
     private static boolean canPlay = true;
 
     public static Media mainStage = new Media(new File("res/sound/03_Stage Theme.mp3").toURI().toString());
+    public static Media subMenu = new Media(new File("res/sound/08_Sub Menu.mp3").toURI().toString());
     public static Media mainMenu = new Media(new File("res/sound/01_Title Screen.mp3").toURI().toString());
     public static Media endingStage = new Media(new File("res/sound/06_Ending.mp3").toURI().toString());
     public static Media gameOver = new Media(new File("res/sound/07_Game Over.mp3").toURI().toString());

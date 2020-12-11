@@ -47,7 +47,7 @@ public class Sandbox {
     * Single Player
     * */
     public static void init() {
-        if (MainController.isMultiMode() == true) {
+        if (MainController.isMultiMode()) {
             Level.createMultiplayerMap();
         } else {
             Level.createMap();
@@ -77,6 +77,19 @@ public class Sandbox {
         gc.setLineWidth(2);
         gc.setFill(Color.BLUE);
         start(gc);
+
+//        Button btnPause = new Button();
+//        btnPause.setText("Pause");
+//        root.getChildren().add(btnPause);
+//        btnPause.setOnMouseClicked(event -> {
+//            try {
+//                SubmenuController.setStage(event);
+//            } catch (Exception e) {
+//
+//            }
+//        });
+
+
 
         init();
     }
@@ -149,7 +162,7 @@ public class Sandbox {
             else blockObjects.get(i).update();
         }
         player.update();
-        player2.update();
+        if (MainController.isMultiMode()) player2.update();
         for (int i = 0; i < bombs.size(); i++) {
             if (bombs.get(i).isRemoved()) bombs.remove(i);
             else bombs.get(i).update();
@@ -169,7 +182,6 @@ public class Sandbox {
         blockObjects.forEach(g -> g.render(gc));
         enemies.forEach(g -> g.render(gc));
         player.render(gc);
-        player2.render(gc);
         if (MainController.isMultiMode()) {
             player2.render(gc);
         }

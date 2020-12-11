@@ -12,16 +12,7 @@ public class BombermanGame extends Application {
 
 
     public void start(Stage primaryStage) {
-//        primaryStage.setTitle("BomberNoBrain");
-//        Sandbox.setupScene();
-//        Scene s = Sandbox.getS();
-//        primaryStage.setScene(s);
-//        primaryStage.show();
-//
-//        if (SoundEffect.isCanPlay()) {
-//            SoundEffect.playLoop(SoundEffect.mainStage);
-//        }
-        if (MainController.isMultiMode() == false) {
+        if (!MainController.isMultiMode()) {
             primaryStage.setTitle("BomberNoBrain");
 
         } else {
